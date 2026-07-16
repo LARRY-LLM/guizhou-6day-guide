@@ -222,6 +222,8 @@
 - 用户选择在当前任务中直接执行实施计划；已用测试先行方式新增 GitHub Pages 工作流契约测试，确认其先因工作流不存在而失败，再加入最小权限工作流使测试通过。
 - 本地完整测试已增至 16 项并全部通过；`npm run build` 成功，10 个关键入口、Sites 文件和本地图片产物全部存在。Pages 实现提交为 `02cefa8`。
 - GitHub Desktop 已添加当前本地仓库并识别 `main` 分支、0 个未提交文件；当前停在创建公开仓库 `guizhou-six-day-guide` 的最终 “Publish repository” 动作前，等待公开权限变更的动作时确认。
+- 用户已在动作时确认公开发布；GitHub 远端已创建为 <https://github.com/LARRY-LLM/guizhou-6day-guide>，`main` 已推送并指向提交 `93b3e84`。
+- Windows 自动操作第二次仍无法可靠确认 Chrome 当前 URL；用户改为人工完成 GitHub Pages 开关。已提供 Pages 设置页和 Actions 工作流页的直接地址，以及选择 “GitHub Actions” 和重新运行工作流的具体点击步骤。
 
 ### 验证结果
 
@@ -240,6 +242,7 @@
 4. 版本 3 的约 20 MB 构建归档再次在托管文件传输端失败；改用平台从同一已推送提交执行干净构建，发布成功，未改变已验证的源码。
 5. 用户在手机浏览器通过移动网络访问 Sites 地址时被 Cloudflare 安全服务拦截。由于同一版本在桌面真实浏览器完整渲染，多个移动 User-Agent 请求也返回 200，说明拦截发生在应用代码之前，并依赖特定手机网络出口或边缘风控信号；`chatgpt.site` 的托管安全规则不由该项目控制，无法从 React/Vite 源码中关闭。解决方向是改用 GitHub Pages 提供独立的公开访问链路，同时保留 Sites 作为备用。
 6. GitHub Desktop 在第一次填写本地仓库路径后读取界面状态时返回一次 UI 可访问性缓存错误；停止使用旧控件索引、重新定位 GitHub Desktop 窗口后确认表单仍在且未提交，重新填写路径并成功添加仓库，未发生错误上传或重复仓库创建。
+7. GitHub Desktop 首次创建远端后界面仍显示上传动画，远端起初没有分支；使用 “Publish branch” 重试后，通过 `git ls-remote` 确认 `main` 已到达远端。随后切换 Chrome 时，Windows 自动操作因无法可靠确认浏览器当前 URL 而按安全规则停止；用户已将 GitHub 标签页置于前台并要求继续。
 
 ### 沟通与记录约定
 
