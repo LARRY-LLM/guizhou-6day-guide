@@ -8,6 +8,10 @@ const indexSource = readFileSync(resolve(process.cwd(), "index.html"), "utf8");
 const workerPath = resolve(process.cwd(), "worker/index.js");
 const hostingPath = resolve(process.cwd(), ".openai/hosting.json");
 const packageLockSource = readFileSync(resolve(process.cwd(), "package-lock.json"), "utf8");
+const pagesWorkflowPath = resolve(
+  process.cwd(),
+  ".github/workflows/deploy-pages.yml",
+);
 
 test("uses relative production paths so dist can open directly from disk", () => {
   expect(viteConfigSource).toContain('base: "./"');
@@ -38,4 +42,18 @@ test("places browser assets in the Sites client directory", () => {
 test("uses the supported public npm registry for hosted builds", () => {
   expect(packageLockSource).not.toContain("registry.npmmirror.com");
   expect(packageLockSource).toContain("registry.npmjs.org");
+});
+
+test("defines a least-privilege GitHub Pages deployment", () => {
+  expect(existsSync(pagesWorkflowPath)).toBe(true);
+  const workflowSource = readFileSync(pagesWorkflowPath, "utf8");
+  expect(workflowSource).toContain("branches: [main]");
+  expect(workflowSource).toContain("contents: read");
+  expect(workflowSource).toContain("pages: write");
+  expect(workflowSource).toContain("id-token: write");
+  expect(workflowSource).toContain("run: npm ci");
+  expect(workflowSource).toContain("run: npm run build");
+  expect(workflowSource).toContain("path: dist/client");
+  expect(workflowSource).toContain("actions/upload-pages-artifact@v4");
+  expect(workflowSource).toContain("actions/deploy-pages@v4");
 });
