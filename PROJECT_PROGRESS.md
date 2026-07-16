@@ -201,7 +201,7 @@
 
 ### 当前状态
 
-打印样式、生产构建和公开托管配置已完成。版本 2 的公网请求全部返回 HTTP 404；沿“域名 → Worker → 静态资源绑定 → 浏览器文件”的请求链路复核后，确认根因是 Vite 将静态文件输出到 `dist/` 根目录，而 Sites 只从 `dist/client/` 建立 `ASSETS` 绑定。最小修复已作为版本 3 发布，桌面端公开网站已经恢复。随后用户在手机浏览器访问同一地址时被 Cloudflare 安全页拦截；代码、移动端 User-Agent 请求和 Sites 公开状态均正常，问题定位为托管边缘对手机网络出口 IP 或请求特征的拦截。用户已选择方案 1：创建公开 GitHub 仓库并由 GitHub Actions 自动构建、发布 GitHub Pages，Sites 版本 3 保留为备用入口。
+打印样式、生产构建和公开托管配置已完成。版本 2 的公网请求全部返回 HTTP 404；沿“域名 → Worker → 静态资源绑定 → 浏览器文件”的请求链路复核后，确认根因是 Vite 将静态文件输出到 `dist/` 根目录，而 Sites 只从 `dist/client/` 建立 `ASSETS` 绑定。最小修复已作为版本 3 发布，桌面端公开网站已经恢复。随后用户在手机浏览器访问同一地址时被 Cloudflare 安全页拦截；代码、移动端 User-Agent 请求和 Sites 公开状态均正常，问题定位为托管边缘对手机网络出口 IP 或请求特征的拦截。GitHub Pages 自动构建现已发布成功，主要手机分享地址为 <https://larry-llm.github.io/guizhou-6day-guide/>，Sites 版本 3 保留为备用入口；仅待用户在原手机网络验收和打印另存 PDF 人工核查。
 
 ### 已完成内容
 
@@ -226,16 +226,19 @@
 - Windows 自动操作第二次仍无法可靠确认 Chrome 当前 URL；用户改为人工完成 GitHub Pages 开关。已提供 Pages 设置页和 Actions 工作流页的直接地址，以及选择 “GitHub Actions” 和重新运行工作流的具体点击步骤。
 - 用户截图确认 GitHub 已识别 `Deploy GitHub Pages` 工作流和 `workflow_dispatch` 手动触发器；提交 `93b3e84` 的首次运行在 9 秒后失败，页面已提供 “Run workflow” 入口。下一步是确认 Settings → Pages 的 Source 为 “GitHub Actions”，再从 `main` 手动重跑。
 - 用户手动重跑的 `Deploy GitHub Pages #2` 在 25 秒后失败。通过 GitHub Actions Jobs API 复核，检出、Node 配置、Pages 配置、依赖安装、生产构建和 Pages 产物上传全部成功，唯一失败步骤是 `Post Set up Node.js`。
-- 根因是仓库 `.npmrc` 写死 Windows 本机绝对缓存路径，Ubuntu Actions 运行器在 Node 缓存收尾时无法找到该路径。新增回归测试先复现失败，再删除项目级 `cache=` 覆盖；目标构建测试 7/7、完整测试 17/17 和生产构建均通过，等待推送触发新一轮 Pages 部署。
+- 根因是仓库 `.npmrc` 写死 Windows 本机绝对缓存路径，Ubuntu Actions 运行器在 Node 缓存收尾时无法找到该路径。新增回归测试先复现失败，再删除项目级 `cache=` 覆盖；目标构建测试 7/7、完整测试 17/17 和生产构建均通过。
+- 修复提交 `85363c3` 已推送；GitHub Actions 运行 `29482831847` 完成并返回 `success`，GitHub Pages 正式地址为 <https://larry-llm.github.io/guizhou-6day-guide/>。
 
 ### 验证结果
 
-- Vitest：15 项测试全部通过。
+- Vitest：17 项测试全部通过。
 - 生产构建：`npm run build` 通过，生成 `dist/client/`、`dist/server/index.js` 与 `dist/.openai/hosting.json`。
 - 本地浏览器：页面标题、根节点与主标题正常，控制台无 warning/error，页面无横向溢出。
 - 旧版本复现：版本 2 的 `/`、`/index.html` 和实际 JS 均返回 HTTP 404，证明问题不在访问权限或单一路由。
 - 新版本公网验证：`/`、`/index.html`、HTML 引用的实际 JS/CSS 连续三轮全部返回 HTTP 200，且页面根节点存在。
 - 新版本真实浏览器：主标题与完整正文成功渲染，15/15 张图片加载，页面无横向溢出，控制台无 warning/error。
+- GitHub Pages 公网验证：根页面、实际 JS 和实际 CSS 连续三轮全部返回 HTTP 200。
+- GitHub Pages 独立浏览器：页面标题与主标题正确，React 完整正文已渲染；滚动触发懒加载后 15/15 张图片完整，无横向溢出，控制台无 warning/error。
 
 ### 遇到问题与处理
 
@@ -247,6 +250,7 @@
 6. GitHub Desktop 在第一次填写本地仓库路径后读取界面状态时返回一次 UI 可访问性缓存错误；停止使用旧控件索引、重新定位 GitHub Desktop 窗口后确认表单仍在且未提交，重新填写路径并成功添加仓库，未发生错误上传或重复仓库创建。
 7. GitHub Desktop 首次创建远端后界面仍显示上传动画，远端起初没有分支；使用 “Publish branch” 重试后，通过 `git ls-remote` 确认 `main` 已到达远端。随后切换 Chrome 时，Windows 自动操作因无法可靠确认浏览器当前 URL 而按安全规则停止；用户已将 GitHub 标签页置于前台并要求继续。
 8. Pages 第二次运行的页面注释显示缓存路径校验错误。Jobs API 进一步证明实际站点构建和产物上传成功，失败只发生在 `actions/setup-node` 的缓存收尾；向上追溯到 `.npmrc` 的 Windows 绝对缓存目录，而不是 React/Vite、Pages 权限或产物目录。通过移除平台相关缓存覆盖并增加自动化契约测试修复。
+9. 修复提交首次通过命令行推送时卡在本机凭据代理连接，GitHub Desktop 随后报告 `The remote disconnected`。终止由该次超时命令启动的残留 Git 进程后，使用 GitHub Desktop 做一次干净重试，3 个增量提交成功到达 `origin/main`，新 Actions 运行自动开始。
 
 ### 沟通与记录约定
 
@@ -254,8 +258,5 @@
 
 ### 下一步
 
-1. 用户审阅并确认 GitHub Pages 手机端公开访问设计说明。
-2. 创建公开 GitHub 仓库 `guizhou-six-day-guide`，推送当前源码并配置 GitHub Actions Pages 自动构建。
-3. 验证 GitHub Pages 首页、JS、CSS、图片与真实桌面浏览器渲染。
-4. 用户在此前被拦截的手机浏览器和网络下验收新地址。
-5. 完成打印另存 PDF 人工核查；全部验收后结束阶段 4。
+1. 用户在此前被 Cloudflare 拦截的手机浏览器和网络下打开 GitHub Pages 新地址并验收。
+2. 完成打印另存 PDF 人工核查；全部验收后结束阶段 4。
