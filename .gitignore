@@ -1,0 +1,7 @@
+node_modules/
+.npm-cache/
+dist/
+.codex-*.log
+design-qa/*.png
+*.tar.gz
+
