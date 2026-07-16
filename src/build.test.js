@@ -7,6 +7,7 @@ const viteConfigSource = readFileSync(resolve(process.cwd(), "vite.config.mjs"),
 const indexSource = readFileSync(resolve(process.cwd(), "index.html"), "utf8");
 const workerPath = resolve(process.cwd(), "worker/index.js");
 const hostingPath = resolve(process.cwd(), ".openai/hosting.json");
+const packageLockSource = readFileSync(resolve(process.cwd(), "package-lock.json"), "utf8");
 
 test("uses relative production paths so dist can open directly from disk", () => {
   expect(viteConfigSource).toContain('base: "./"');
@@ -28,4 +29,9 @@ test("packages a Sites-compatible static worker", () => {
   expect(viteConfigSource).toContain("staticSites()");
   expect(workerSource).toContain("env.ASSETS.fetch");
   expect(hostingConfig.project_id).toMatch(/^appgprj_/);
+});
+
+test("uses the supported public npm registry for hosted builds", () => {
+  expect(packageLockSource).not.toContain("registry.npmmirror.com");
+  expect(packageLockSource).toContain("registry.npmjs.org");
 });
