@@ -224,6 +224,7 @@
 - GitHub Desktop 已添加当前本地仓库并识别 `main` 分支、0 个未提交文件；当前停在创建公开仓库 `guizhou-six-day-guide` 的最终 “Publish repository” 动作前，等待公开权限变更的动作时确认。
 - 用户已在动作时确认公开发布；GitHub 远端已创建为 <https://github.com/LARRY-LLM/guizhou-6day-guide>，`main` 已推送并指向提交 `93b3e84`。
 - Windows 自动操作第二次仍无法可靠确认 Chrome 当前 URL；用户改为人工完成 GitHub Pages 开关。已提供 Pages 设置页和 Actions 工作流页的直接地址，以及选择 “GitHub Actions” 和重新运行工作流的具体点击步骤。
+- 用户截图确认 GitHub 已识别 `Deploy GitHub Pages` 工作流和 `workflow_dispatch` 手动触发器；提交 `93b3e84` 的首次运行在 9 秒后失败，页面已提供 “Run workflow” 入口。下一步是确认 Settings → Pages 的 Source 为 “GitHub Actions”，再从 `main` 手动重跑。
 
 ### 验证结果
 
