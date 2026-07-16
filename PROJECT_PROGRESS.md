@@ -219,6 +219,9 @@
 - 已形成 GitHub Pages 手机端公开访问设计说明：`docs/superpowers/specs/2026-07-16-github-pages-mobile-access-design.md`。
 - 用户已确认 GitHub Pages 手机端公开访问设计，允许进入实施计划与发布阶段。
 - 已形成 GitHub Pages 实施计划：`docs/superpowers/plans/2026-07-16-github-pages-mobile-access.md`。
+- 用户选择在当前任务中直接执行实施计划；已用测试先行方式新增 GitHub Pages 工作流契约测试，确认其先因工作流不存在而失败，再加入最小权限工作流使测试通过。
+- 本地完整测试已增至 16 项并全部通过；`npm run build` 成功，10 个关键入口、Sites 文件和本地图片产物全部存在。Pages 实现提交为 `02cefa8`。
+- GitHub Desktop 已添加当前本地仓库并识别 `main` 分支、0 个未提交文件；当前停在创建公开仓库 `guizhou-six-day-guide` 的最终 “Publish repository” 动作前，等待公开权限变更的动作时确认。
 
 ### 验证结果
 
@@ -236,6 +239,7 @@
 3. 当前部署未能对外提供任何静态入口，表现为根路径和已知文件路径均为 404。对照 Sites 的可运行产物后确认，Worker 入口与托管配置存在，但浏览器文件位于 `dist/` 根目录，不在平台用于 `ASSETS` 绑定的 `dist/client/`；因此部署状态成功而所有静态请求仍为 404。
 4. 版本 3 的约 20 MB 构建归档再次在托管文件传输端失败；改用平台从同一已推送提交执行干净构建，发布成功，未改变已验证的源码。
 5. 用户在手机浏览器通过移动网络访问 Sites 地址时被 Cloudflare 安全服务拦截。由于同一版本在桌面真实浏览器完整渲染，多个移动 User-Agent 请求也返回 200，说明拦截发生在应用代码之前，并依赖特定手机网络出口或边缘风控信号；`chatgpt.site` 的托管安全规则不由该项目控制，无法从 React/Vite 源码中关闭。解决方向是改用 GitHub Pages 提供独立的公开访问链路，同时保留 Sites 作为备用。
+6. GitHub Desktop 在第一次填写本地仓库路径后读取界面状态时返回一次 UI 可访问性缓存错误；停止使用旧控件索引、重新定位 GitHub Desktop 窗口后确认表单仍在且未提交，重新填写路径并成功添加仓库，未发生错误上传或重复仓库创建。
 
 ### 沟通与记录约定
 
