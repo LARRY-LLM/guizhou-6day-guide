@@ -14,7 +14,7 @@
 - 不增加 PDF 或打印第三方依赖。
 - A4 纵向打印，默认页边距 12 mm。
 - 打印隐藏 `.no-print`，卡片内部避免分页，图片不得拉伸或越界。
-- `dist/` 必须包含入口、打包 CSS/JS 和 7 张本地图片，且可离线读取。
+- `dist/client/` 必须包含入口、打包 CSS/JS 和 7 张本地图片，且可离线读取；`dist/server/index.js` 作为 Sites 运行入口。
 - 项目目录不是 Git 仓库，因此本计划不执行提交命令；每个任务以测试和证据文件作为检查点。
 
 ---
@@ -71,8 +71,9 @@ Expected: 全部测试通过，打印按钮行为仍调用一次 `window.print()
 **Files:**
 - Verify: `src/App.jsx`
 - Verify: `public/assets/*`
-- Create: `dist/index.html`
-- Create: `dist/assets/*`
+- Create: `dist/client/index.html`
+- Create: `dist/client/assets/*`
+- Create: `dist/server/index.js`
 
 **Interfaces:**
 - Consumes: Vite 入口与 `public/assets` 7 张图片。
@@ -90,11 +91,11 @@ Expected: 全部测试通过，打印按钮行为仍调用一次 `window.print()
 
 Run: `npm run build`
 
-Expected: Vite 成功输出 `dist/index.html`、打包 CSS/JS 和 `dist/assets`。
+Expected: Vite 成功输出 `dist/client/index.html`、打包 CSS/JS、`dist/client/assets` 和 `dist/server/index.js`。
 
 - [ ] **Step 4: 检查交付结构与离线依赖**
 
-确认 `dist/index.html` 存在，7 张命名图片存在，打包文件不引用远程字体或远程图片 URL。
+确认 `dist/client/index.html` 与 `dist/server/index.js` 存在，7 张命名图片存在，打包文件不引用远程字体或远程图片 URL。
 
 ### Task 4: 浏览器、打印与视觉 QA
 
@@ -128,4 +129,3 @@ Expected: Vite 成功输出 `dist/index.html`、打包 CSS/JS 和 `dist/assets`�
 Run: `npm test -- --reporter=verbose && npm run build`
 
 Expected: 测试与构建均成功，`dist/` 与最终证据文件齐全。
-

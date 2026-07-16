@@ -12,7 +12,7 @@
 - 打印时隐藏顶部导航及操作按钮，移除屏幕纸张纹理和重阴影，使用白色纸张背景与可读的靛蓝/深灰文本。
 - 以 A4 纵向、约 12 mm 页边距为默认打印目标。
 - 日程页、景点卡、实用信息卡和清单卡避免在卡片内部断页；不强制每个区块单独占一页，以免产生大片空白。
-- 生产构建必须包含 `dist/index.html`、打包后的 JS/CSS 和 7 张本地图片；不得依赖远程字体或远程图片。
+- Sites 生产构建必须包含 `dist/client/index.html`、`dist/client/assets/` 中打包后的 JS/CSS 和 7 张本地图片，并保留 `dist/server/index.js` 与 `dist/.openai/hosting.json`；不得依赖远程字体或远程图片。
 - 最终检查覆盖桌面端、390px 手机端、打印预览、锚点、图片加载、控制台、官方来源链接和横向溢出。
 - 继续使用现有参考图作为唯一视觉真值：`C:/Users/LarryLiang/.codex/generated_images/019f687a-b9ca-7200-a804-38d6d67e241d/exec-c1ee675c-c1d7-4b33-8b84-718d14d93bec.png`。
 
@@ -25,7 +25,7 @@
 ## 验证与错误处理
 
 - 自动化测试先检查打印入口、`@page`、`@media print`、隐藏控件和分页规则；测试必须先因规则缺失而失败，再实现通过。
-- 生产构建后检查 `dist/index.html`、静态资源目录和 7 张图片是否存在，并扫描 HTML/CSS/JS 中是否出现外部图片或字体依赖。
+- 生产构建后检查 `dist/client/index.html`、`dist/client/assets/`、`dist/server/index.js` 和 7 张图片是否存在，并扫描 HTML/CSS/JS 中是否出现外部图片或字体依赖。
 - 浏览器检查记录页面宽度、越界元素、图片加载数、主要锚点和控制台错误。
 - 官方链接在真实浏览器中逐一打开；若受本机 TLS 或站点策略阻塞，记录精确状态，不把环境错误误报为页面失效。
 - 打印预览或打印媒体截图若发现 P0–P2 问题，修复后在相同视口重新捕获并复核。
@@ -33,8 +33,7 @@
 ## 交付物
 
 - 可在本地打开的最终网页预览。
-- `dist/index.html` 与全部本地静态资源。
+- `dist/client/index.html` 与 `dist/client/assets/` 中的全部本地静态资源。
 - 测试及构建结果。
 - 阶段 4 浏览器、打印和视觉 QA 截图。
 - 更新后的 `design-qa.md` 与 `PROJECT_PROGRESS.md`，包含完整项目复盘。
-
