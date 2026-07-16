@@ -8,6 +8,7 @@ const indexSource = readFileSync(resolve(process.cwd(), "index.html"), "utf8");
 const workerPath = resolve(process.cwd(), "worker/index.js");
 const hostingPath = resolve(process.cwd(), ".openai/hosting.json");
 const packageLockSource = readFileSync(resolve(process.cwd(), "package-lock.json"), "utf8");
+const npmConfigSource = readFileSync(resolve(process.cwd(), ".npmrc"), "utf8");
 const pagesWorkflowPath = resolve(
   process.cwd(),
   ".github/workflows/deploy-pages.yml",
@@ -42,6 +43,10 @@ test("places browser assets in the Sites client directory", () => {
 test("uses the supported public npm registry for hosted builds", () => {
   expect(packageLockSource).not.toContain("registry.npmmirror.com");
   expect(packageLockSource).toContain("registry.npmjs.org");
+});
+
+test("does not force hosted builds to use a local machine npm cache", () => {
+  expect(npmConfigSource).not.toMatch(/^cache=/m);
 });
 
 test("defines a least-privilege GitHub Pages deployment", () => {

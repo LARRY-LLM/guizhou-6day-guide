@@ -225,6 +225,8 @@
 - 用户已在动作时确认公开发布；GitHub 远端已创建为 <https://github.com/LARRY-LLM/guizhou-6day-guide>，`main` 已推送并指向提交 `93b3e84`。
 - Windows 自动操作第二次仍无法可靠确认 Chrome 当前 URL；用户改为人工完成 GitHub Pages 开关。已提供 Pages 设置页和 Actions 工作流页的直接地址，以及选择 “GitHub Actions” 和重新运行工作流的具体点击步骤。
 - 用户截图确认 GitHub 已识别 `Deploy GitHub Pages` 工作流和 `workflow_dispatch` 手动触发器；提交 `93b3e84` 的首次运行在 9 秒后失败，页面已提供 “Run workflow” 入口。下一步是确认 Settings → Pages 的 Source 为 “GitHub Actions”，再从 `main` 手动重跑。
+- 用户手动重跑的 `Deploy GitHub Pages #2` 在 25 秒后失败。通过 GitHub Actions Jobs API 复核，检出、Node 配置、Pages 配置、依赖安装、生产构建和 Pages 产物上传全部成功，唯一失败步骤是 `Post Set up Node.js`。
+- 根因是仓库 `.npmrc` 写死 Windows 本机绝对缓存路径，Ubuntu Actions 运行器在 Node 缓存收尾时无法找到该路径。新增回归测试先复现失败，再删除项目级 `cache=` 覆盖；目标构建测试 7/7、完整测试 17/17 和生产构建均通过，等待推送触发新一轮 Pages 部署。
 
 ### 验证结果
 
@@ -244,6 +246,7 @@
 5. 用户在手机浏览器通过移动网络访问 Sites 地址时被 Cloudflare 安全服务拦截。由于同一版本在桌面真实浏览器完整渲染，多个移动 User-Agent 请求也返回 200，说明拦截发生在应用代码之前，并依赖特定手机网络出口或边缘风控信号；`chatgpt.site` 的托管安全规则不由该项目控制，无法从 React/Vite 源码中关闭。解决方向是改用 GitHub Pages 提供独立的公开访问链路，同时保留 Sites 作为备用。
 6. GitHub Desktop 在第一次填写本地仓库路径后读取界面状态时返回一次 UI 可访问性缓存错误；停止使用旧控件索引、重新定位 GitHub Desktop 窗口后确认表单仍在且未提交，重新填写路径并成功添加仓库，未发生错误上传或重复仓库创建。
 7. GitHub Desktop 首次创建远端后界面仍显示上传动画，远端起初没有分支；使用 “Publish branch” 重试后，通过 `git ls-remote` 确认 `main` 已到达远端。随后切换 Chrome 时，Windows 自动操作因无法可靠确认浏览器当前 URL 而按安全规则停止；用户已将 GitHub 标签页置于前台并要求继续。
+8. Pages 第二次运行的页面注释显示缓存路径校验错误。Jobs API 进一步证明实际站点构建和产物上传成功，失败只发生在 `actions/setup-node` 的缓存收尾；向上追溯到 `.npmrc` 的 Windows 绝对缓存目录，而不是 React/Vite、Pages 权限或产物目录。通过移除平台相关缓存覆盖并增加自动化契约测试修复。
 
 ### 沟通与记录约定
 
