@@ -31,6 +31,10 @@ test("packages a Sites-compatible static worker", () => {
   expect(hostingConfig.project_id).toMatch(/^appgprj_/);
 });
 
+test("places browser assets in the Sites client directory", () => {
+  expect(viteConfigSource).toContain('outDir: "dist/client"');
+});
+
 test("uses the supported public npm registry for hosted builds", () => {
   expect(packageLockSource).not.toContain("registry.npmmirror.com");
   expect(packageLockSource).toContain("registry.npmjs.org");

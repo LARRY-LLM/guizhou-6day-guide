@@ -22,6 +22,9 @@ function staticSites() {
 
 export default defineConfig({
   base: "./",
+  build: {
+    outDir: "dist/client",
+  },
   optimizeDeps: {
     include: ["react", "react-dom/client"],
   },
