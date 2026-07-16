@@ -201,7 +201,7 @@
 
 ### 当前状态
 
-打印样式、生产构建和公开托管配置已完成。版本 2 的公网请求全部返回 HTTP 404；沿“域名 → Worker → 静态资源绑定 → 浏览器文件”的请求链路复核后，确认根因是 Vite 将静态文件输出到 `dist/` 根目录，而 Sites 只从 `dist/client/` 建立 `ASSETS` 绑定。最小修复已作为版本 3 发布，公开网站现已恢复。阶段 4 仅剩打印另存 PDF 人工核查与用户验收。
+打印样式、生产构建和公开托管配置已完成。版本 2 的公网请求全部返回 HTTP 404；沿“域名 → Worker → 静态资源绑定 → 浏览器文件”的请求链路复核后，确认根因是 Vite 将静态文件输出到 `dist/` 根目录，而 Sites 只从 `dist/client/` 建立 `ASSETS` 绑定。最小修复已作为版本 3 发布，桌面端公开网站已经恢复。随后用户在手机浏览器访问同一地址时被 Cloudflare 安全页拦截；代码、移动端 User-Agent 请求和 Sites 公开状态均正常，问题定位为托管边缘对手机网络出口 IP 或请求特征的拦截。用户已选择方案 1：创建公开 GitHub 仓库并由 GitHub Actions 自动构建、发布 GitHub Pages，Sites 版本 3 保留为备用入口。
 
 ### 已完成内容
 
@@ -213,6 +213,10 @@
 - 已创建并部署 Sites 版本 2，平台状态为 `succeeded`，生成的候选公开地址为 <https://guizhou-six-day-guide.rvsinw.chatgpt.site>。
 - 新增 `dist/client/` 产物契约回归测试；先确认旧配置下测试失败，再将 Vite 输出目录改为 `dist/client/`，保持 `dist/server/index.js` 与 `dist/.openai/hosting.json` 不变。
 - 已发布 Sites 版本 3；公开地址继续使用 <https://guizhou-six-day-guide.rvsinw.chatgpt.site>。
+- 已核查用户提供的手机浏览器截图，确认页面为 Cloudflare “Attention Required” 安全拦截，而不是网站自身 404、白屏或 React 运行错误。
+- 已使用 iPhone Safari、Android Chrome 和微信 Android User-Agent 请求现有地址，均得到 HTTP 200；同时确认 Sites 项目处于公开、启用、版本 3 生效状态。
+- 已向用户说明三个处理方向；用户选择 GitHub Pages + Actions 自动构建方案，并明确批准创建公开仓库 `guizhou-six-day-guide`，允许使用已登录的 GitHub Desktop/网页端完成发布。
+- 已形成 GitHub Pages 手机端公开访问设计说明：`docs/superpowers/specs/2026-07-16-github-pages-mobile-access-design.md`。
 
 ### 验证结果
 
@@ -229,8 +233,16 @@
 2. 改用已推送的源码构建后，平台最初因锁文件中使用 `registry.npmmirror.com` 而拒绝依赖。替换为官方 npm 注册表后，部署状态变为成功。
 3. 当前部署未能对外提供任何静态入口，表现为根路径和已知文件路径均为 404。对照 Sites 的可运行产物后确认，Worker 入口与托管配置存在，但浏览器文件位于 `dist/` 根目录，不在平台用于 `ASSETS` 绑定的 `dist/client/`；因此部署状态成功而所有静态请求仍为 404。
 4. 版本 3 的约 20 MB 构建归档再次在托管文件传输端失败；改用平台从同一已推送提交执行干净构建，发布成功，未改变已验证的源码。
+5. 用户在手机浏览器通过移动网络访问 Sites 地址时被 Cloudflare 安全服务拦截。由于同一版本在桌面真实浏览器完整渲染，多个移动 User-Agent 请求也返回 200，说明拦截发生在应用代码之前，并依赖特定手机网络出口或边缘风控信号；`chatgpt.site` 的托管安全规则不由该项目控制，无法从 React/Vite 源码中关闭。解决方向是改用 GitHub Pages 提供独立的公开访问链路，同时保留 Sites 作为备用。
+
+### 沟通与记录约定
+
+- 用户要求所有沟通过的任务和问题都写进本文件。今后每项用户任务、问题、决定、诊断证据、处理结果和阻塞均应及时补充，不再只在阶段结束时汇总。
 
 ### 下一步
 
-1. 完成打印另存 PDF 人工核查。
-2. 用户验收后结束阶段 4。
+1. 用户审阅并确认 GitHub Pages 手机端公开访问设计说明。
+2. 创建公开 GitHub 仓库 `guizhou-six-day-guide`，推送当前源码并配置 GitHub Actions Pages 自动构建。
+3. 验证 GitHub Pages 首页、JS、CSS、图片与真实桌面浏览器渲染。
+4. 用户在此前被拦截的手机浏览器和网络下验收新地址。
+5. 完成打印另存 PDF 人工核查；全部验收后结束阶段 4。

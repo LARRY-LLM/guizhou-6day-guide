@@ -15,4 +15,6 @@ When implementing from a selected generated mock, treat that image as the source
 - D6 uses a light 贵阳 city walk in the morning, then an afternoon high-speed-rail return.
 - Stop after each of the four agreed implementation stages for user review before continuing.
 - Update `PROJECT_PROGRESS.md` at the end of every stage with completed work, issues, solutions, reusable ideas, and review status.
+- Record every user-communicated task, issue, decision, diagnostic result, resolution, and blocker in `PROJECT_PROGRESS.md` promptly; stage-end summaries are not sufficient on their own.
+- Publish a public `guizhou-six-day-guide` repository through GitHub Pages with GitHub Actions as the primary mobile-sharing route; retain Sites version 3 as a fallback.
 - Use the Product Design plugin for the remaining webpage design and visual QA work.
