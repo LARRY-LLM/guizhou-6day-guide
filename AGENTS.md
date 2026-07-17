@@ -8,11 +8,11 @@ When implementing from a selected generated mock, treat that image as the source
 
 ## Durable project decisions
 
-- Use the selected “黔蓝手作旅行簿” mock at `C:/Users/LarryLiang/.codex/generated_images/019f687a-b9ca-7200-a804-38d6d67e241d/exec-c1ee675c-c1d7-4b33-8b84-718d14d93bec.png` as the only visual source of truth.
+- Preserve the original “黔蓝手作旅行簿” design language, and use the user-selected complete-guide map template at `C:/Users/LarryLiang/.codex/generated_images/019f6df4-1123-7b50-bac5-2be44378f5e6/exec-852d6737-bbf6-456d-a6dd-b1cdef73b2da.png` as the source of truth for the next redesign.
 - Keep the project as a React + Vite static site with local assets and a production deliverable in `dist/`.
-- The fixed route is 贵阳进出 → 黄果树 → 荔波小七孔 → 西江千户苗寨 → 贵阳; do not add 梵净山.
-- D5 keeps the traveler in 西江 through the daytime and returns to 贵阳 in the evening.
-- D6 uses a light 贵阳 city walk in the morning, then an afternoon high-speed-rail return.
+- Replace the old 小七孔 route with the complete-guide route: 贵阳 → 黄果树/安顺 → 龙宫/屯堡 → 贵阳 → 西江 → 朗德 → 贵阳返程; do not add 梵净山.
+- Include every hotel, restaurant, price, transport, reservation, budget, and warning item from `D:/workbuddy/project/2026-07-16-16-34-33/贵州6天攻略_完整整合版.md`.
+- Add a prominent six-day Guizhou route map between the hero and pre-trip overview; on mobile, pair the map with a readable vertical six-day list.
 - Stop after each of the four agreed implementation stages for user review before continuing.
 - Update `PROJECT_PROGRESS.md` at the end of every stage with completed work, issues, solutions, reusable ideas, and review status.
 - Record every user-communicated task, issue, decision, diagnostic result, resolution, and blocker in `PROJECT_PROGRESS.md` promptly; stage-end summaries are not sufficient on their own.

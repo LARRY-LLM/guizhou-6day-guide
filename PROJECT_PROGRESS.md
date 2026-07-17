@@ -1,5 +1,13 @@
 # 贵州 6 日旅行攻略项目进度
 
+## 2026-07-17 完整攻略换版决策
+
+- 用户提供 `D:/workbuddy/project/2026-07-16-16-34-33/贵州6天攻略_完整整合版.md`，要求把其中所有行程、酒店、餐饮、价格、交通、预约和避坑内容完整迁入现有网站。
+- 用户确认继续在原 React + Vite 网站上修改，不重新搭建；保留“黔蓝手作旅行簿”风格、响应式、打印和原发布方式。
+- 新路线替换旧路线：D1 贵阳，D2 黄果树/安顺，D3 龙宫/屯堡后回贵阳，D4 西江，D5 朗德上寨并续住西江，D6 返回贵阳半日后返程；旧小七孔内容退出。
+- 用户要求增加六日行程地图，并从三版视觉模板中选择第 2 版：`C:/Users/LarryLiang/.codex/generated_images/019f6df4-1123-7b50-bac5-2be44378f5e6/exec-852d6737-bbf6-456d-a6dd-b1cdef73b2da.png`。
+- 已形成设计规格 `docs/superpowers/specs/2026-07-17-complete-guide-route-map-design.md` 和实施计划 `docs/superpowers/plans/2026-07-17-complete-guide-route-map.md`；尚未修改生产代码。
+
 ## 项目目标
 
 基于 React + Vite 制作“黔蓝手作旅行簿”风格的贵州 6 日静态攻略，并在最终阶段生成可离线打开、适合打印为 PDF 的 `dist/` 交付物。
