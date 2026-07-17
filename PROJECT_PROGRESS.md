@@ -6,7 +6,7 @@
 - 用户确认继续在原 React + Vite 网站上修改，不重新搭建；保留“黔蓝手作旅行簿”风格、响应式、打印和原发布方式。
 - 新路线替换旧路线：D1 贵阳，D2 黄果树/安顺，D3 龙宫/屯堡后回贵阳，D4 西江，D5 朗德上寨并续住西江，D6 返回贵阳半日后返程；旧小七孔内容退出。
 - 用户要求增加六日行程地图，并从三版视觉模板中选择第 2 版：`C:/Users/LarryLiang/.codex/generated_images/019f6df4-1123-7b50-bac5-2be44378f5e6/exec-852d6737-bbf6-456d-a6dd-b1cdef73b2da.png`。
-- 已形成设计规格 `docs/superpowers/specs/2026-07-17-complete-guide-route-map-design.md` 和实施计划 `docs/superpowers/plans/2026-07-17-complete-guide-route-map.md`；生产代码、路线地图、响应式、打印、性能优化和最终 QA 均已完成，当前仅等待用户确认是否发布到公开网站。
+- 已形成设计规格 `docs/superpowers/specs/2026-07-17-complete-guide-route-map-design.md` 和实施计划 `docs/superpowers/plans/2026-07-17-complete-guide-route-map.md`；生产代码、路线地图、响应式、打印、性能优化和最终 QA 均已完成，并已发布到 GitHub Pages 公开网站。
 
 ## 项目目标
 
@@ -20,7 +20,7 @@
 | 2 | 首屏与路线视觉 | 已通过 |
 | 3 | 完整攻略与移动端 | 已通过 |
 | 4 | 打印、构建与最终 QA | 进行中：网站已恢复，待打印 PDF 人工核查与用户验收 |
-| 5 | 完整攻略内容替换、六日地图与最终优化 | 已完成：本地验收通过，待用户决定是否发布 |
+| 5 | 完整攻略内容替换、六日地图与最终优化 | 已完成并发布：GitHub Pages 线上验收通过 |
 
 ## 阶段 1：内容、数据与项目基线
 
@@ -274,7 +274,7 @@
 
 ### 当前状态
 
-阶段 5 已完成。完整攻略内容、六日路线地图、“黔蓝手作旅行簿”视觉、桌面/平板/手机响应式、打印样式、图片性能优化、设计 QA 和独立代码复核全部通过。本地预览保持在 <http://127.0.0.1:4173/>；尚未把本次换版推送到 GitHub Pages 或 Sites，等待用户确认。
+阶段 5 已完成并发布。完整攻略内容、六日路线地图、“黔蓝手作旅行簿”视觉、桌面/平板/手机响应式、打印样式、图片性能优化、设计 QA 和独立代码复核全部通过。主要公开分享地址为 <https://larry-llm.github.io/guizhou-6day-guide/>；GitHub Pages 作为主入口，避免此前 Sites 地址在部分手机网络触发 Cloudflare 安全拦截。
 
 ### 用户决定
 
@@ -331,9 +331,18 @@
 - `ea8ce6a`：重建完整攻略页面、数据组件和六日路线地图。
 - `63110e0`：图片性能优化、PNG 回退、懒加载和 QA 证据入库。
 - `88730e0`：消除 Vite 公共资源 `image-set()` 构建警告并增加回归测试。
+- `78668ac`：记录完整攻略换版最终进度。
+
+### 在线发布记录（2026-07-17）
+
+- 将 `main` 从旧线上提交 `3f39f68` 更新到阶段 5 完整版本；GitHub Actions `Deploy GitHub Pages` 运行 `29558207093` 完成，结论为 `success`。
+- 主要分享地址：<https://larry-llm.github.io/guizhou-6day-guide/>。
+- 桌面 Chrome、iPhone Safari、微信 Android 三类请求均返回 HTTP 200，HTML 标题为“贵州六日完整旅行手记”。
+- 线上实际 CSS、JavaScript、`guizhou-route-map.webp` 和 `paper-texture.webp` 均返回 HTTP 200；路线地图 WebP 为 223,044 字节，纸张纹理 WebP 为 13,472 字节。
+- 继续保留 Sites 配置作为备用发布能力，但不把曾被手机网络拦截的 `chatgpt.site` 地址作为主要分享入口。
 
 ### 下一步
 
-1. 用户打开本地预览确认内容密度、文案和视觉细节。
-2. 用户确认后，把阶段 5 提交推送到 GitHub Pages，替换现有公开网站；Sites 继续作为备用入口。
-3. 如用户提出内容调整，继续在当前页面和数据结构上增量修改，不重新搭建网站。
+1. 用户用常用手机网络打开 GitHub Pages 地址，做最终人工浏览确认。
+2. 如用户提出内容调整，继续在当前页面和数据结构上增量修改，并通过同一 GitHub Pages 工作流更新，不重新搭建网站。
+3. Sites 继续作为备用入口；除非其手机网络拦截问题消失，否则不替代 GitHub Pages 主链接。
