@@ -57,6 +57,13 @@ test("ships WebP alternatives and lazy-loads below-the-fold photography", () => 
   expect(dayChapterSource).toContain('loading="lazy"');
 });
 
+test("defines runtime image sets so Vite does not rewrite public CSS URLs", () => {
+  expect(appSource).toContain('"--paper-texture-image"');
+  expect(appSource).toContain('"--indigo-border-image"');
+  expect(appSource).toContain('image-set(url("${asset("paper-texture.webp")}")');
+  expect(appSource).toContain('image-set(url("${asset("indigo-border.webp")}")');
+});
+
 test("packages a Sites-compatible static worker", () => {
   expect(existsSync(workerPath)).toBe(true);
   expect(existsSync(hostingPath)).toBe(true);

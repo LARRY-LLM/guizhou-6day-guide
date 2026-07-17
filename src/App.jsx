@@ -26,6 +26,11 @@ const imageAsset = (name) => ({
   png: asset(`${name}.png`),
 });
 
+const assetImageSets = {
+  "--paper-texture-image": `image-set(url("${asset("paper-texture.webp")}") type("image/webp"), url("${asset("paper-texture.png")}") type("image/png"))`,
+  "--indigo-border-image": `image-set(url("${asset("indigo-border.webp")}") type("image/webp"), url("${asset("indigo-border.png")}") type("image/png"))`,
+};
+
 function Picture({ image, alt, className, eager = false, priority = false }) {
   return (
     <picture className={className}>
@@ -63,7 +68,7 @@ const officialSources = [
 
 export function App() {
   return (
-    <>
+    <div className="app-shell" style={assetImageSets}>
       <header className="site-header no-print">
         <a className="brand" href="#route-map" aria-label="返回路线地图">
           <Picture image={imageAsset("indigo-seal")} alt="" eager />
@@ -138,6 +143,6 @@ export function App() {
         <Picture image={imageAsset("indigo-border")} alt="" />
         <p>山水经纬 · 苗乡人文 · 黔蓝旅行手记</p>
       </footer>
-    </>
+    </div>
   );
 }

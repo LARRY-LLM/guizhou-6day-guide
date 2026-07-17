@@ -100,7 +100,7 @@ final result: passed
 - 390 × 844：行前总览为单列；路线节点改为静态清单；日程与汇总表通过 `data-label` 卡片化，D3 行程可读，无横向溢出。
 - Primary interactions tested：顶部“路线地图”“行前总览”锚点、路线图 D3 节点均在真实浏览器中成功定位；“打印或保存攻略”由交互测试验证会调用 `window.print()`。
 - Console errors checked：真实浏览器 warning/error 列表为空。
-- 自动化：Vitest 27/27 通过；Vite 生产构建成功；生产源码与产物旧路线扫描为空。
+- 自动化：Vitest 29/29 通过；Vite 生产构建无警告；生产源码与产物旧路线扫描为空。
 
 ## Open Questions
 

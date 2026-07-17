@@ -28,9 +28,14 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   color: var(--ink);
-  background: var(--paper) image-set(url("/assets/paper-texture.webp") type("image/webp"), url("/assets/paper-texture.png") type("image/png")) center top / 760px auto repeat;
+  background: var(--paper);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+.app-shell {
+  min-height: 100vh;
+  background: var(--paper) var(--paper-texture-image) center top / 760px auto repeat;
 }
 
 body,
@@ -370,7 +375,7 @@ footer > * {
   gap: 24px 28px;
   margin-top: 14px;
   padding: 32px 34px 26px;
-  background: rgba(255, 253, 247, 0.86) image-set(url("/assets/paper-texture.webp") type("image/webp"), url("/assets/paper-texture.png") type("image/png")) center / 640px auto repeat;
+  background: rgba(255, 253, 247, 0.86) var(--paper-texture-image) center / 640px auto repeat;
   border: 1px solid rgba(18, 63, 67, 0.12);
   box-shadow: var(--paper-shadow);
 }
@@ -546,7 +551,7 @@ footer > * {
 .checklist-grid article,
 .budget-food article,
 .sources {
-  background: rgba(255, 253, 247, 0.78) image-set(url("/assets/paper-texture.webp") type("image/webp"), url("/assets/paper-texture.png") type("image/png")) center / 680px auto repeat;
+  background: rgba(255, 253, 247, 0.78) var(--paper-texture-image) center / 680px auto repeat;
   border: 1px solid var(--soft-line);
 }
 
@@ -2290,7 +2295,7 @@ footer p {
   position: relative;
   padding: 30px 34px 34px;
   overflow: clip;
-  background: rgba(255, 253, 247, 0.8) image-set(url("/assets/paper-texture.webp") type("image/webp"), url("/assets/paper-texture.png") type("image/png")) center / 680px auto repeat;
+  background: rgba(255, 253, 247, 0.8) var(--paper-texture-image) center / 680px auto repeat;
   border: 1px solid var(--soft-line);
   box-shadow: var(--paper-shadow);
 }
@@ -2323,7 +2328,7 @@ footer p {
   overflow: hidden;
   border-top: 7px solid transparent;
   border-bottom: 7px solid transparent;
-  border-image: image-set(url("/assets/indigo-border.webp") type("image/webp"), url("/assets/indigo-border.png") type("image/png")) 18 round;
+  border-image: var(--indigo-border-image) 18 round;
   background: #e9e7db;
 }
 
@@ -2377,7 +2382,7 @@ footer p {
 .trip-summaries {
   position: relative;
   padding: 32px 34px;
-  background: rgba(255, 253, 247, 0.78) image-set(url("/assets/paper-texture.webp") type("image/webp"), url("/assets/paper-texture.png") type("image/png")) center / 680px auto repeat;
+  background: rgba(255, 253, 247, 0.78) var(--paper-texture-image) center / 680px auto repeat;
   border: 1px solid var(--soft-line);
 }
 

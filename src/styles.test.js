@@ -7,7 +7,7 @@ const css = readFileSync(resolve(process.cwd(), "src/styles.css"), "utf8");
 test("defines the stage two travel-journal visual system", () => {
   for (const contract of [
     "--ink: #123f43",
-    'url("/assets/paper-texture.png")',
+    "var(--paper-texture-image)",
     ".site-header",
     ".hero-collage",
     ".route-overview",
@@ -15,6 +15,11 @@ test("defines the stage two travel-journal visual system", () => {
   ]) {
     expect(css).toContain(contract);
   }
+});
+
+test("keeps public image-set URLs out of compiled CSS input", () => {
+  expect(css).not.toContain('image-set(url("/assets/');
+  expect(css).toContain("var(--indigo-border-image)");
 });
 
 test("defines the complete guide and mobile layout contracts", () => {
