@@ -1423,6 +1423,69 @@ footer p {
   }
 }
 
+@media print {
+  .route-atlas-heading {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 4mm;
+  }
+
+  .route-atlas .route-strip {
+    margin-top: 4mm;
+  }
+
+  .route-atlas-legend {
+    right: 3mm;
+    bottom: 3mm;
+    padding: 1.5mm;
+    font-size: 7pt;
+  }
+
+  .trip-overview {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    padding: 3mm;
+  }
+
+  .trip-overview .overview-column {
+    padding: 3mm;
+  }
+
+  .day-ledger {
+    grid-template-columns: minmax(35mm, 0.72fr) minmax(0, 1.28fr);
+  }
+
+  .day-ledger .day-photo {
+    position: static;
+  }
+
+  .schedule-table .schedule-row {
+    grid-template-columns: 24mm minmax(0, 1fr) minmax(12mm, auto);
+    gap: 2mm;
+    min-height: 0;
+    padding: 2mm 0 2mm 3mm;
+  }
+
+  .day-detail-grid {
+    gap: 4mm;
+    margin-top: 4mm;
+  }
+
+  .hotel-row {
+    grid-template-columns: minmax(28mm, 1.2fr) repeat(3, minmax(0, 1fr)) minmax(14mm, 0.6fr);
+    gap: 2mm;
+  }
+
+  .summary-ledger,
+  .food-warning-layout {
+    gap: 4mm;
+  }
+
+  .summary-ledger > article,
+  .food-tip-list {
+    padding: 3mm;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -1734,5 +1797,1178 @@ footer p {
 
   footer p {
     padding: 4mm 0 0;
+  }
+}
+
+/* Component-specific layouts for the data-driven guide chapters. */
+.route-atlas-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 28px;
+}
+
+.route-atlas-heading > p {
+  max-width: 440px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+.route-atlas .route-strip {
+  margin-top: 20px;
+  border-top: 1px dashed rgba(18, 63, 67, 0.26);
+}
+
+.route-atlas-legend {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  display: flex;
+  gap: 10px;
+  padding: 8px 10px;
+  color: var(--indigo);
+  background: rgba(255, 253, 247, 0.9);
+  border: 1px solid rgba(18, 63, 67, 0.24);
+  font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+  font-size: 10px;
+}
+
+.route-atlas-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.route-atlas-legend svg {
+  width: 14px;
+  height: 14px;
+  color: var(--vermilion);
+}
+
+.map-stop a {
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  gap: 2px 5px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.map-stop a svg {
+  grid-row: 1 / 3;
+  width: 17px;
+  height: 17px;
+  color: var(--vermilion);
+}
+
+.trip-overview {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  padding: 20px 26px;
+}
+
+.trip-overview .overview-column {
+  display: block;
+  padding: 14px 18px;
+  border-left: 1px dashed rgba(18, 63, 67, 0.26);
+}
+
+.trip-overview .overview-column:first-child {
+  border-left: 0;
+}
+
+.overview-column > svg {
+  width: 27px;
+  height: 27px;
+  margin-bottom: 10px;
+  color: var(--vermilion);
+}
+
+.overview-column ul {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding-left: 18px;
+}
+
+.overview-column li::marker,
+.day-detail-grid li::marker,
+.food-tip-list li::marker,
+.warning-strip li::marker {
+  color: var(--vermilion);
+}
+
+.budget-ledger dl {
+  display: grid;
+  gap: 5px;
+  margin: 0;
+}
+
+.budget-ledger dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid var(--soft-line);
+}
+
+.budget-ledger dt,
+.budget-ledger dd {
+  margin: 0;
+}
+
+.budget-ledger dd,
+.budget-ledger > strong {
+  color: var(--vermilion);
+  font-family: STKaiti, KaiTi, serif;
+}
+
+.budget-ledger > strong {
+  display: block;
+  margin-top: 10px;
+  font-size: 20px;
+}
+
+.reservation-list li > span {
+  display: none;
+}
+
+.day-ledger {
+  grid-template-columns: minmax(250px, 0.8fr) minmax(0, 1.2fr);
+  align-items: start;
+}
+
+.day-ledger .day-photo {
+  position: sticky;
+  top: 24px;
+}
+
+.schedule-table {
+  display: grid;
+  border-top: 1px solid var(--line);
+}
+
+.schedule-table .schedule-row {
+  grid-template-columns: 105px minmax(0, 1fr) minmax(62px, auto);
+  gap: 12px;
+  min-height: 0;
+  padding: 12px 0 12px 14px;
+  border-bottom: 1px solid var(--soft-line);
+}
+
+.schedule-table .schedule-row > :last-child {
+  grid-column: 2 / -1;
+  color: var(--muted);
+  font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+  font-size: 11px;
+}
+
+.schedule-table .schedule-duration {
+  grid-column: 3;
+  grid-row: 1;
+  color: var(--vermilion);
+  font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+  font-size: 10px;
+  text-align: right;
+}
+
+.schedule-table .schedule-note:empty {
+  display: none;
+}
+
+.day-detail-grid {
+  position: relative;
+  z-index: 1;
+  margin-top: 28px;
+}
+
+.day-detail-grid > section,
+.day-detail-grid > aside {
+  min-width: 0;
+}
+
+.day-detail-grid h4 {
+  margin: 14px 0 4px;
+  color: var(--indigo);
+  font-size: 14px;
+}
+
+.day-detail-grid ul {
+  margin: 8px 0 0;
+  padding-left: 18px;
+}
+
+.day-detail-grid li,
+.day-detail-grid p {
+  margin: 5px 0 0;
+  color: #4f605d;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.day-detail-grid > section > svg {
+  width: 22px;
+  height: 22px;
+  margin-bottom: 8px;
+  color: var(--vermilion);
+}
+
+.hotel-ledger {
+  padding: 18px 20px;
+  background: rgba(255, 253, 247, 0.62);
+  border-left: 3px solid var(--indigo);
+}
+
+.hotel-table,
+.summary-table {
+  display: grid;
+  border-top: 1px solid var(--line);
+}
+
+.hotel-row,
+.summary-table [role="row"] {
+  display: grid;
+  gap: 8px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--soft-line);
+}
+
+.hotel-row {
+  grid-template-columns: minmax(125px, 1.2fr) repeat(3, minmax(0, 1fr)) minmax(66px, 0.6fr);
+}
+
+.hotel-row > *,
+.summary-table [role="cell"] {
+  min-width: 0;
+  color: #4f605d;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.hotel-row > strong,
+.summary-table strong {
+  color: var(--indigo);
+  font-family: STKaiti, KaiTi, serif;
+  font-size: 15px;
+}
+
+.summary-ledger {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+  border: 0;
+}
+
+.summary-ledger > article {
+  padding: 20px;
+  background: rgba(255, 253, 247, 0.58);
+  border-top: 3px solid var(--indigo);
+  border-bottom: 1px solid var(--soft-line);
+}
+
+.summary-ledger > article > svg,
+.food-tip-list > svg {
+  width: 26px;
+  height: 26px;
+  color: var(--vermilion);
+}
+
+.transport-summary-table [role="row"] {
+  grid-template-columns: minmax(88px, 1.1fr) minmax(55px, 0.55fr) minmax(55px, 0.55fr) minmax(80px, 1fr);
+}
+
+.stay-summary-table [role="row"] {
+  grid-template-columns: 62px minmax(70px, 0.8fr) minmax(0, 1.4fr);
+}
+
+.route-aphorism {
+  margin: 13px 0 0;
+  color: var(--vermilion);
+  font-family: STKaiti, KaiTi, serif;
+  font-size: 14px;
+}
+
+.food-warning-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+  gap: 28px;
+}
+
+.food-tip-list {
+  padding: 20px;
+  background: rgba(255, 253, 247, 0.58);
+  border-top: 3px solid var(--indigo);
+}
+
+.food-tip-list h3 {
+  margin: 9px 0 12px;
+  color: var(--indigo);
+  font-family: STKaiti, KaiTi, serif;
+  font-size: 24px;
+}
+
+.food-tip-list ul,
+.warning-strip ol {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.food-tip-list li {
+  padding: 8px 0;
+  border-bottom: 1px dashed rgba(18, 63, 67, 0.22);
+}
+
+.food-tip-list p,
+.warning-strip h3,
+.warning-strip ol {
+  margin: 4px 0 0;
+}
+
+@media (max-width: 1100px) {
+  .trip-overview {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .trip-overview .overview-column:nth-child(odd) {
+    border-left: 0;
+  }
+
+  .trip-overview .overview-column:nth-child(n + 3) {
+    border-top: 1px dashed rgba(18, 63, 67, 0.26);
+  }
+
+  .day-ledger {
+    grid-template-columns: minmax(220px, 0.75fr) minmax(0, 1.25fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .route-atlas-heading {
+    display: block;
+  }
+
+  .route-atlas-heading > p {
+    margin-top: 12px;
+  }
+
+  .route-atlas .route-strip {
+    display: grid;
+    margin-top: 18px;
+  }
+
+  .route-atlas-legend {
+    display: none;
+  }
+
+  .map-stop a {
+    display: grid;
+    grid-template-columns: 24px 34px minmax(0, 1fr);
+    gap: 2px 5px;
+  }
+
+  .map-stop a svg {
+    grid-row: 1 / 3;
+  }
+
+  .map-stop a span {
+    grid-row: 1 / 3;
+    align-self: center;
+  }
+
+  .map-stop a strong {
+    grid-column: 3;
+  }
+
+  .map-stop-1,
+  .map-stop-2,
+  .map-stop-3,
+  .map-stop-4,
+  .map-stop-5,
+  .map-stop-6 {
+    inset: auto;
+  }
+
+  .trip-overview {
+    grid-template-columns: 1fr;
+    padding: 12px 18px;
+  }
+
+  .trip-overview .overview-column,
+  .trip-overview .overview-column:first-child {
+    border-left: 0;
+    border-top: 1px dashed rgba(18, 63, 67, 0.26);
+  }
+
+  .trip-overview .overview-column:first-child {
+    border-top: 0;
+  }
+
+  .day-ledger {
+    grid-template-columns: 1fr;
+  }
+
+  .day-ledger .day-photo {
+    position: static;
+  }
+
+  .schedule-table .schedule-row {
+    grid-template-columns: 82px minmax(0, 1fr);
+    padding: 10px 0 10px 12px;
+  }
+
+  .schedule-table .schedule-duration {
+    grid-column: 2;
+    grid-row: auto;
+    text-align: left;
+  }
+
+  .hotel-row,
+  .transport-summary-table [role="row"],
+  .stay-summary-table [role="row"] {
+    grid-template-columns: 1fr;
+    gap: 3px;
+  }
+
+  .hotel-row > *,
+  .summary-table [role="cell"] {
+    display: grid;
+    grid-template-columns: 5.5em minmax(0, 1fr);
+  }
+
+  .summary-ledger,
+  .food-warning-layout {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .summary-ledger > article,
+  .food-tip-list {
+    padding: 16px;
+  }
+
+  .warning-strip {
+    grid-template-columns: 20px minmax(0, 1fr);
+  }
+}
+
+/* Complete guide: editorial atlas, paper ledgers, and responsive dossiers. */
+.route-atlas,
+.trip-overview,
+.trip-summaries {
+  width: min(calc(100% - 48px), 1320px);
+  margin: 112px auto;
+}
+
+.route-atlas {
+  position: relative;
+  padding: 30px 34px 34px;
+  overflow: clip;
+  background: rgba(255, 253, 247, 0.8) url("/assets/paper-texture.png") center / 680px auto repeat;
+  border: 1px solid var(--soft-line);
+  box-shadow: var(--paper-shadow);
+}
+
+.route-atlas::before,
+.trip-overview::before,
+.trip-summaries::before {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border: 1px solid rgba(18, 63, 67, 0.08);
+  pointer-events: none;
+}
+
+.route-atlas > *,
+.trip-overview > *,
+.trip-summaries > * {
+  position: relative;
+  z-index: 1;
+}
+
+.route-atlas > .section-heading {
+  max-width: 430px;
+  margin-bottom: 24px;
+}
+
+.route-atlas-visual {
+  position: relative;
+  min-height: 590px;
+  overflow: hidden;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-image: url("/assets/indigo-border.png") 18 round;
+  background: #e9e7db;
+}
+
+.route-atlas-map,
+.route-atlas-map img {
+  width: 100%;
+  min-height: 590px;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.route-atlas-map {
+  margin: 0;
+}
+
+.route-atlas-stops {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.map-stop {
+  position: absolute;
+  display: grid;
+  gap: 2px;
+  max-width: 124px;
+  padding: 8px 10px;
+  color: var(--indigo);
+  background: rgba(255, 253, 247, 0.92);
+  border: 1px solid rgba(182, 71, 55, 0.62);
+  box-shadow: 3px 4px 0 rgba(182, 71, 55, 0.16);
+  font-family: STKaiti, KaiTi, serif;
+  line-height: 1.2;
+}
+
+.map-stop strong {
+  color: var(--vermilion);
+  font-size: 20px;
+}
+
+.map-stop span,
+.map-stop small {
+  font-size: 13px;
+}
+
+.trip-overview,
+.trip-summaries {
+  position: relative;
+  padding: 32px 34px;
+  background: rgba(255, 253, 247, 0.78) url("/assets/paper-texture.png") center / 680px auto repeat;
+  border: 1px solid var(--soft-line);
+}
+
+.trip-overview {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 34px;
+}
+
+.overview-column,
+.budget-ledger,
+.reservation-list,
+.summary-ledger {
+  min-width: 0;
+}
+
+.overview-column {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 28px;
+}
+
+.overview-column > section,
+.overview-column > div {
+  padding: 18px 0;
+  border-top: 1px dashed rgba(18, 63, 67, 0.26);
+}
+
+.overview-column h3,
+.budget-ledger h3,
+.reservation-list h3,
+.day-ledger h3,
+.transport-notes h3,
+.hotel-ledger h3,
+.food-notes h3,
+.day-tips h3,
+.summary-ledger h3 {
+  margin: 0 0 10px;
+  color: var(--indigo);
+  font-family: STKaiti, KaiTi, serif;
+  font-size: 23px;
+  line-height: 1.25;
+}
+
+.overview-column p,
+.overview-column li,
+.budget-ledger,
+.reservation-list,
+.transport-notes,
+.food-notes,
+.day-tips,
+.summary-ledger {
+  color: #4f605d;
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+.budget-ledger,
+.reservation-list,
+.summary-ledger,
+.hotel-ledger,
+.schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-top: 1px solid var(--line);
+}
+
+.budget-ledger th,
+.budget-ledger td,
+.reservation-list li,
+.summary-ledger th,
+.summary-ledger td,
+.hotel-ledger th,
+.hotel-ledger td,
+.schedule-table th,
+.schedule-table td {
+  padding: 10px 8px;
+  vertical-align: top;
+  border-bottom: 1px solid var(--soft-line);
+}
+
+.budget-ledger th,
+.summary-ledger th,
+.hotel-ledger th,
+.schedule-table th {
+  color: var(--indigo);
+  font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-align: left;
+}
+
+.budget-ledger tfoot th,
+.budget-ledger tfoot td {
+  color: var(--vermilion);
+  font-family: STKaiti, KaiTi, serif;
+  font-size: 18px;
+  border-bottom: 0;
+}
+
+.reservation-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.reservation-list li {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr);
+  gap: 8px;
+}
+
+.reservation-list li::before {
+  content: "□";
+  color: var(--vermilion);
+  font-family: serif;
+  font-size: 18px;
+  line-height: 1.1;
+}
+
+.day-entry {
+  padding: 36px;
+}
+
+.day-ledger {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 26px;
+  padding-top: 28px;
+}
+
+.schedule-table {
+  table-layout: fixed;
+}
+
+.schedule-table th:first-child,
+.schedule-table td:first-child {
+  width: 116px;
+  color: var(--vermilion);
+  font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+  font-size: 11px;
+}
+
+.schedule-table td {
+  color: #425653;
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+.day-detail-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: 24px 30px;
+}
+
+.transport-notes,
+.food-notes,
+.day-tips {
+  padding: 18px 20px;
+  background: rgba(244, 239, 227, 0.66);
+  border-left: 3px solid var(--vermilion);
+}
+
+.transport-notes p,
+.food-notes p,
+.day-tips p {
+  margin: 0;
+}
+
+.hotel-ledger {
+  grid-column: 1 / -1;
+}
+
+.hotel-ledger td,
+.summary-ledger td {
+  color: #425653;
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.trip-summaries {
+  display: grid;
+  gap: 28px;
+}
+
+.summary-ledger caption,
+.schedule-table caption,
+.budget-ledger caption,
+.hotel-ledger caption {
+  padding: 0 0 10px;
+  color: var(--indigo);
+  font-family: STKaiti, KaiTi, serif;
+  font-size: 23px;
+  text-align: left;
+}
+
+.warning-strip {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 12px;
+  padding: 16px 18px;
+  color: #7d3329;
+  background: rgba(182, 71, 55, 0.08);
+  border-top: 1px solid rgba(182, 71, 55, 0.44);
+  border-bottom: 1px solid rgba(182, 71, 55, 0.44);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.warning-strip svg {
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+}
+
+@media (max-width: 1100px) {
+  .route-atlas-visual,
+  .route-atlas-map,
+  .route-atlas-map img {
+    min-height: 480px;
+  }
+
+  .trip-overview {
+    grid-template-columns: 1fr;
+  }
+
+  .day-detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hotel-ledger {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .route-atlas,
+  .trip-overview,
+  .trip-summaries {
+    width: min(calc(100% - 24px), 1320px);
+    margin-top: 74px;
+    margin-bottom: 74px;
+    padding: 24px 18px;
+  }
+
+  .route-atlas::before,
+  .trip-overview::before,
+  .trip-summaries::before {
+    inset: 8px;
+  }
+
+  .route-atlas-visual {
+    min-height: 272px;
+    border-width: 5px;
+  }
+
+  .route-atlas-map,
+  .route-atlas-map img {
+    min-height: 272px;
+    object-position: center;
+  }
+
+  .route-atlas-stops {
+    position: static;
+    display: grid;
+    gap: 0;
+    margin-top: 18px;
+    border-top: 1px dashed rgba(18, 63, 67, 0.26);
+  }
+
+  .map-stop {
+    position: relative;
+    max-width: none;
+    min-height: 62px;
+    padding: 10px 10px 10px 30px;
+    border: 0;
+    border-bottom: 1px dashed rgba(18, 63, 67, 0.26);
+    box-shadow: none;
+  }
+
+  .map-stop strong {
+    font-size: 18px;
+  }
+
+  .overview-column {
+    grid-template-columns: 1fr;
+  }
+
+  .day-entry {
+    padding: 24px 18px 26px 28px;
+  }
+
+  .day-ledger {
+    gap: 20px;
+    padding-top: 22px;
+  }
+
+  .schedule-table,
+  .schedule-table tbody,
+  .schedule-table tr,
+  .schedule-table th,
+  .schedule-table td,
+  .hotel-ledger,
+  .hotel-ledger tbody,
+  .hotel-ledger tr,
+  .hotel-ledger th,
+  .hotel-ledger td,
+  .summary-ledger,
+  .summary-ledger tbody,
+  .summary-ledger tr,
+  .summary-ledger th,
+  .summary-ledger td,
+  .budget-ledger,
+  .budget-ledger tbody,
+  .budget-ledger tr,
+  .budget-ledger th,
+  .budget-ledger td {
+    display: block;
+    width: 100%;
+  }
+
+  .schedule-table thead,
+  .hotel-ledger thead,
+  .summary-ledger thead,
+  .budget-ledger thead {
+    display: none;
+  }
+
+  .schedule-table tr,
+  .hotel-ledger tr,
+  .summary-ledger tr,
+  .budget-ledger tr {
+    padding: 9px 0;
+    border-bottom: 1px solid var(--soft-line);
+  }
+
+  .schedule-table td,
+  .hotel-ledger td,
+  .summary-ledger td,
+  .budget-ledger td {
+    position: relative;
+    min-height: 1.6em;
+    padding: 3px 0 3px 7.5em;
+    border: 0;
+  }
+
+  .schedule-table td::before,
+  .hotel-ledger td::before,
+  .summary-ledger td::before,
+  .budget-ledger td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    width: 6.8em;
+    color: var(--vermilion);
+    font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.7;
+  }
+
+  .schedule-table td:first-child {
+    width: auto;
+    font-size: 12px;
+  }
+
+  .day-detail-grid {
+    gap: 16px;
+  }
+
+  .transport-notes,
+  .food-notes,
+  .day-tips {
+    padding: 16px;
+  }
+
+  .warning-strip {
+    padding: 14px;
+  }
+}
+
+@media print {
+  .route-atlas,
+  .trip-overview,
+  .trip-summaries {
+    width: 100%;
+    margin: 10mm 0;
+    padding: 5mm;
+    box-shadow: none;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .route-atlas::before,
+  .trip-overview::before,
+  .trip-summaries::before {
+    inset: 2mm;
+  }
+
+  .route-atlas-visual,
+  .route-atlas-map,
+  .route-atlas-map img {
+    min-height: 88mm;
+  }
+
+  .map-stop {
+    padding: 1.5mm 2mm;
+    font-size: 7.5pt;
+  }
+
+  .map-stop strong {
+    font-size: 12pt;
+  }
+
+  .day-entry {
+    break-before: auto;
+    page-break-before: auto;
+  }
+
+  .day-header,
+  .day-ledger,
+  .schedule-table,
+  .day-detail-grid,
+  .warning-strip {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .day-ledger {
+    gap: 4mm;
+    padding-top: 4mm;
+  }
+
+  .schedule-table th,
+  .schedule-table td,
+  .hotel-ledger th,
+  .hotel-ledger td,
+  .summary-ledger th,
+  .summary-ledger td,
+  .budget-ledger th,
+  .budget-ledger td {
+    padding: 2mm;
+    font-size: 7.5pt;
+  }
+
+  .transport-notes,
+  .food-notes,
+  .day-tips,
+  .warning-strip {
+    padding: 3mm;
+  }
+}
+
+/* Final atlas alignment and overview cascade. */
+.map-stop {
+  min-width: 145px;
+  max-width: 170px;
+  transform: translate(16px, -50%);
+}
+
+.map-stop-1 { left: 49.8%; top: 28%; }
+.map-stop-2 { left: 31.9%; top: 51.8%; }
+.map-stop-3 { left: 33.5%; top: 69.2%; }
+.map-stop-4 { left: 48.6%; top: 85%; }
+.map-stop-5 { left: 66%; top: 62.6%; }
+.map-stop-6 { left: 70.4%; top: 39.1%; }
+
+.map-stop-2 {
+  transform: translate(calc(-100% - 16px), -50%);
+}
+
+.trip-overview {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+}
+
+@media (max-width: 1100px) {
+  .trip-overview {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .map-stop {
+    min-width: 0;
+    max-width: none;
+    transform: none;
+  }
+
+  .map-stop-1,
+  .map-stop-2,
+  .map-stop-3,
+  .map-stop-4,
+  .map-stop-5,
+  .map-stop-6 {
+    inset: auto;
+  }
+
+  .trip-overview {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media print {
+  .trip-overview {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* Integrated route photos and labelled role-table contracts. */
+.route-map-photo {
+  position: absolute;
+  z-index: 2;
+  width: clamp(90px, 10vw, 145px);
+  margin: 0;
+  padding: 7px 7px 22px;
+  background: #fffdf7;
+  box-shadow: 0 8px 18px rgba(26, 48, 54, 0.18);
+  transform: rotate(-4deg);
+}
+
+.route-map-photo img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.route-map-photo-waterfall {
+  left: 3%;
+  bottom: 8%;
+}
+
+.route-map-photo-village {
+  right: 3%;
+  bottom: 9%;
+  transform: rotate(4deg);
+}
+
+.schedule-header,
+.hotel-header,
+.summary-header {
+  color: var(--indigo);
+  font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.budget-note {
+  margin-top: 10px;
+  color: #6c7774;
+  font-size: 12px;
+}
+
+@media (max-width: 640px) {
+  .route-map-photo {
+    display: none;
+  }
+
+  .schedule-header,
+  .hotel-header,
+  .summary-header {
+    display: none !important;
+  }
+
+  .schedule-row,
+  .hotel-row,
+  .summary-table > [role="row"] {
+    display: block;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--soft-line);
+  }
+
+  .schedule-row > [data-label],
+  .hotel-row > [data-label],
+  .summary-table [role="row"] > [data-label] {
+    position: relative;
+    display: block;
+    min-height: 1.6em;
+    padding: 3px 0 3px 7.5em;
+    border: 0;
+  }
+
+  .schedule-row > [data-label]::before,
+  .hotel-row > [data-label]::before,
+  .summary-table [role="row"] > [data-label]::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    width: 6.8em;
+    color: var(--vermilion);
+    font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+  }
+}
+
+@media print {
+  .route-map-photo {
+    box-shadow: none;
+  }
+}
+
+/* Keep the preparation heading aligned with its four-column ledger. */
+.preparation-section > .section-heading {
+  width: min(calc(100% - 48px), 1320px);
+  margin-inline: auto;
+}
+
+@media (max-width: 640px) {
+  .preparation-section > .section-heading {
+    width: calc(100% - 24px);
+  }
+}
+
+@media print {
+  .preparation-section > .section-heading {
+    width: 100%;
   }
 }

@@ -13,6 +13,8 @@ const pagesWorkflowPath = resolve(
   process.cwd(),
   ".github/workflows/deploy-pages.yml",
 );
+const legacyItineraryPath = resolve(process.cwd(), "src/data/itinerary.js");
+const legacyBridgeAssetPath = resolve(process.cwd(), "public/assets/xiaoqikong-bridge.png");
 
 test("uses relative production paths so dist can open directly from disk", () => {
   expect(viteConfigSource).toContain('base: "./"');
@@ -22,8 +24,13 @@ test("uses relative production paths so dist can open directly from disk", () =>
 
 test("identifies the final guide in the browser and print metadata", () => {
   expect(indexSource).toContain('<html lang="zh-CN">');
-  expect(indexSource).toContain("<title>贵州六日旅行手记｜黔蓝手作旅行簿</title>");
+  expect(indexSource).toContain("<title>贵州六日完整旅行手记｜黔蓝手作旅行簿</title>");
   expect(indexSource).toContain('name="description"');
+});
+
+test("does not ship legacy Libo route material", () => {
+  expect(existsSync(legacyItineraryPath)).toBe(false);
+  expect(existsSync(legacyBridgeAssetPath)).toBe(false);
 });
 
 test("packages a Sites-compatible static worker", () => {

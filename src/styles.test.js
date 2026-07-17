@@ -42,3 +42,68 @@ test("defines an A4 print contract for saving the guide as PDF", () => {
     expect(css).toContain(contract);
   }
 });
+
+test("defines the route atlas and overview ledger visual contracts", () => {
+  for (const contract of [
+    ".route-atlas",
+    ".route-atlas-visual",
+    ".route-atlas-map",
+    ".route-atlas-stops",
+    ".map-stop",
+    ".trip-overview",
+    ".budget-ledger",
+    ".reservation-list",
+  ]) {
+    expect(css).toContain(contract);
+  }
+});
+
+test("defines responsive day dossiers and printable summary ledgers", () => {
+  for (const contract of [
+    ".day-ledger",
+    ".schedule-table",
+    ".day-detail-grid",
+    ".transport-notes",
+    ".hotel-ledger",
+    ".food-notes",
+    ".day-tips",
+    ".trip-summaries",
+    ".summary-ledger",
+    ".warning-strip",
+    ".schedule-table td::before",
+    "@media (max-width: 640px)",
+  ]) {
+    expect(css).toContain(contract);
+  }
+});
+
+test("aligns HTML labels to raster stops without CSS node drawings", () => {
+  for (const coordinate of [
+    ".map-stop-1 { left: 49.8%; top: 28%; }",
+    ".map-stop-2 { left: 31.9%; top: 51.8%; }",
+    ".map-stop-3 { left: 33.5%; top: 69.2%; }",
+    ".map-stop-4 { left: 48.6%; top: 85%; }",
+    ".map-stop-5 { left: 66%; top: 62.6%; }",
+    ".map-stop-6 { left: 70.4%; top: 39.1%; }",
+  ]) {
+    expect(css).toContain(coordinate);
+  }
+  expect(css).not.toMatch(/\.map-stop(?:\s+a)?::(?:before|after)/);
+  expect(css).toContain(".map-stop-2 {\n  transform: translate(calc(-100% - 16px), -50%);")
+});
+
+test("ends with an authoritative four two one overview cascade", () => {
+  const contractStart = css.lastIndexOf("/* Final atlas alignment and overview cascade. */");
+  expect(contractStart).toBeGreaterThan(-1);
+
+  const finalContract = css.slice(contractStart);
+  expect(finalContract).toMatch(/\.trip-overview\s*\{[^}]*repeat\(4, minmax\(0, 1fr\)\)/s);
+  expect(finalContract).toMatch(/@media \(max-width: 1100px\)[\s\S]*?\.trip-overview\s*\{[^}]*repeat\(2, minmax\(0, 1fr\)\)/);
+  expect(finalContract).toMatch(/@media \(max-width: 640px\)[\s\S]*?\.trip-overview\s*\{[^}]*grid-template-columns: 1fr/);
+});
+
+test("aligns the preparation heading with the overview ledger", () => {
+  expect(css).toMatch(/\.preparation-section > \.section-heading\s*\{[^}]*width: min\(calc\(100% - 48px\), 1320px\)[^}]*margin-inline: auto/s);
+  expect(css).toMatch(/@media \(max-width: 640px\)[\s\S]*?\.preparation-section > \.section-heading\s*\{[^}]*width: calc\(100% - 24px\)/);
+  expect(css).toMatch(/@media print[\s\S]*?\.preparation-section > \.section-heading\s*\{[^}]*width: 100%/);
+});

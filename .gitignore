@@ -3,5 +3,5 @@ node_modules/
 dist/
 .codex-*.log
 design-qa/*.png
+.superpowers/
 *.tar.gz
-

@@ -66,3 +66,53 @@ stage 2 final result: passed
 - 未执行打印预览、生产构建或生成 `dist/`，保持阶段 4 边界。
 
 final result: passed
+
+# 完整攻略重构最终设计 QA（2026-07-17）
+
+## 对照基准与实现证据
+
+- source visual truth path：`C:/Users/LarryLiang/.codex/generated_images/019f6df4-1123-7b50-bac5-2be44378f5e6/exec-852d6737-bbf6-456d-a6dd-b1cdef73b2da.png`
+- 目标状态：模板 2 的“黔蓝手作旅行簿”路线地图、纸张台账与摄影碎片方向；实现增加完整 6 天正文，因此以同一“路线地图”区域做归一化比较，不把长页内容密度误判为视觉漂移。
+- browser-rendered implementation screenshot：`design-qa/desktop-route-focused-final.png`
+- full-view combined comparison evidence：`design-qa/comparison-route-map-final-pass.png`
+- focused region evidence：`design-qa/desktop-route-focused-final.png`、`design-qa/mobile-390x844-route-map.png`、`design-qa/mobile-390x844-preparation.png`、`design-qa/mobile-390x844-day3.png`
+- 视口：1440 × 900、1024 × 900、390 × 844。
+- 状态：首屏、路线地图、行前总览、D3 行程卡、桌面/平板/手机响应式。
+
+## Findings 与修复历史
+
+1. `[P2]` 行前总览标题未与四列台账对齐。初始代码遗漏 `.preparation-section > .section-heading` 容器约束，桌面与手机标题贴左。修复为桌面 `width: min(calc(100% - 48px), 1320px)`、手机 `calc(100% - 24px)`、打印 `100%`。修复后 390px 标题与台账左缘均为 12px，1440px 均为 52.33px；证据：`mobile-390x844-preparation.png`。
+2. `[P2]` 桌面路线图 D2 / D3 标签在统一向右展开时重叠。将标签宽度约束为 145–170px，并让 D2 向节点左侧展开；同一 1440 × 900 视口复查计算 `overlaps=[]`。修复后证据：`desktop-route-focused-final.png`、`comparison-route-map-final-pass.png`。
+3. `[P3]` 手机路线地图的节点交通清单后仍有六日速览，信息略重复。两者分别承担“详细交通”与“每日概览”，没有布局或可用性问题，保留为后续可选精简项。
+
+## 必查视觉面
+
+- Fonts and typography：标题使用楷体书写感，正文采用可读的中文衬线/系统字体；桌面、平板与手机均无裁切，D3 长标题和交通文字正常换行。
+- Spacing and layout rhythm：首屏左右构图、路线图纸页、四列/两列/单列总览保持连续节奏；1440、1024、390 三档均无横向溢出。
+- Colors and visual tokens：米白纸张、靛蓝主色、朱红强调、低饱和墨绿色正文与参考模板一致，按钮和焦点态对比明确。
+- Image quality and asset fidelity：路线图为 2048 × 1152 真实生成位图，照片使用黄果树、西江、贵阳本地素材；没有用 CSS/手写 SVG/占位形状伪造地图、照片或核心装饰。
+- Copy and content：页面已呈现原稿的 6 天行程、交通、价格、住宿、餐饮、预约、预算、避坑、来源与时效说明；D3 起点和 D5 住宿备选均与固定路线一致。
+
+## 响应式、交互与可访问性
+
+- 1440 × 900：路线图 6 个 HTML 标签对应 6 个 raster 圆点，无相交；`body.scrollWidth === documentElement.clientWidth`。
+- 1024 × 900：行前总览为两列，标题与台账左缘均为 24px，无横向溢出。
+- 390 × 844：行前总览为单列；路线节点改为静态清单；日程与汇总表通过 `data-label` 卡片化，D3 行程可读，无横向溢出。
+- Primary interactions tested：顶部“路线地图”“行前总览”锚点、路线图 D3 节点均在真实浏览器中成功定位；“打印或保存攻略”由交互测试验证会调用 `window.print()`。
+- Console errors checked：真实浏览器 warning/error 列表为空。
+- 自动化：Vitest 26/26 通过；Vite 生产构建成功；生产源码与产物旧路线扫描为空。
+
+## Open Questions
+
+- 无 P0/P1/P2 阻断项。是否在后续版本合并手机端两套 D1–D6 信息，由用户体验偏好决定。
+
+## Implementation Checklist
+
+- [x] 完整内容替换与来源说明
+- [x] 六日地图与六节点标注
+- [x] 桌面/平板/手机响应式
+- [x] 表格移动端标签与打印样式
+- [x] 真实浏览器、控制台与生产构建验证
+- [x] 参考模板与实现同屏对照
+
+final result: passed
