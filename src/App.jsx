@@ -21,13 +21,33 @@ import { days } from "./data/days.js";
 
 const asset = (filename) => `${import.meta.env.BASE_URL}assets/${filename}`;
 
+const imageAsset = (name) => ({
+  webp: asset(`${name}.webp`),
+  png: asset(`${name}.png`),
+});
+
+function Picture({ image, alt, className, eager = false, priority = false }) {
+  return (
+    <picture className={className}>
+      <source srcSet={image.webp} type="image/webp" />
+      <img
+        src={image.png}
+        alt={alt}
+        loading={eager ? "eager" : "lazy"}
+        decoding="async"
+        fetchPriority={priority ? "high" : "auto"}
+      />
+    </picture>
+  );
+}
+
 const dayImages = {
-  1: asset("guiyang-evening.png"),
-  2: asset("huangguoshu-waterfall.png"),
+  1: imageAsset("guiyang-evening"),
+  2: imageAsset("huangguoshu-waterfall"),
   3: null,
-  4: asset("xijiang-village.png"),
-  5: asset("xijiang-village.png"),
-  6: asset("guiyang-evening.png"),
+  4: imageAsset("xijiang-village"),
+  5: imageAsset("xijiang-village"),
+  6: imageAsset("guiyang-evening"),
 };
 
 const officialSources = [
@@ -46,7 +66,7 @@ export function App() {
     <>
       <header className="site-header no-print">
         <a className="brand" href="#route-map" aria-label="返回路线地图">
-          <img src={asset("indigo-seal.png")} alt="" />
+          <Picture image={imageAsset("indigo-seal")} alt="" eager />
           <span><strong>黔蓝手作旅行簿</strong><small>贵州六日完整环线</small></span>
         </a>
         <nav aria-label="页面导航">
@@ -74,14 +94,19 @@ export function App() {
           </div>
 
           <div className="hero-collage" aria-label="黄果树、西江苗寨与贵阳风景拼贴">
-            <figure className="hero-photo hero-photo-waterfall"><img src={asset("huangguoshu-waterfall.png")} alt="丰水期黄果树瀑布" /></figure>
-            <figure className="hero-photo hero-photo-village"><img src={asset("xijiang-village.png")} alt="入夜后的西江千户苗寨" /></figure>
-            <figure className="hero-photo hero-photo-bridge"><img src={asset("guiyang-evening.png")} alt="贵阳城市夜景" /></figure>
-            <img className="indigo-swatch" src={asset("indigo-border.png")} alt="" />
+            <figure className="hero-photo hero-photo-waterfall"><Picture image={imageAsset("huangguoshu-waterfall")} alt="丰水期黄果树瀑布" eager priority /></figure>
+            <figure className="hero-photo hero-photo-village"><Picture image={imageAsset("xijiang-village")} alt="入夜后的西江千户苗寨" eager /></figure>
+            <figure className="hero-photo hero-photo-bridge"><Picture image={imageAsset("guiyang-evening")} alt="贵阳城市夜景" eager /></figure>
+            <Picture className="indigo-swatch" image={imageAsset("indigo-border")} alt="" eager />
           </div>
         </section>
 
-        <RouteMap days={days} mapSrc={asset("guizhou-route-map.png")} />
+        <RouteMap
+          days={days}
+          mapImage={imageAsset("guizhou-route-map")}
+          waterfallImage={imageAsset("huangguoshu-waterfall")}
+          villageImage={imageAsset("xijiang-village")}
+        />
         <TripOverview overview={preTripOverview} />
 
         <section className="itinerary" id="itinerary" aria-labelledby="itinerary-title">
@@ -91,7 +116,7 @@ export function App() {
             <p>时间用于安排节奏；票价、班次、房价与营业时间以出发日实时信息为准。</p>
           </header>
           <div className="day-list">
-            {days.map((day) => <DayChapter day={day} imageSrc={dayImages[day.day]} key={day.day} />)}
+            {days.map((day) => <DayChapter day={day} image={dayImages[day.day]} key={day.day} />)}
           </div>
         </section>
 
@@ -110,7 +135,7 @@ export function App() {
       </main>
 
       <footer>
-        <img src={asset("indigo-border.png")} alt="" />
+        <Picture image={imageAsset("indigo-border")} alt="" />
         <p>山水经纬 · 苗乡人文 · 黔蓝旅行手记</p>
       </footer>
     </>

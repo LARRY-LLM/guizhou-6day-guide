@@ -14,7 +14,7 @@ function TextSections({ sections }) {
   });
 }
 
-export function DayChapter({ day, imageSrc }) {
+export function DayChapter({ day, image }) {
   return (
     <article className={`day-entry day-${day.day}`} id={`day-${day.day}`} data-testid="day-entry">
       <header className="day-header">
@@ -31,9 +31,12 @@ export function DayChapter({ day, imageSrc }) {
       </header>
 
       <div className="day-ledger">
-        {imageSrc ? (
+        {image ? (
           <figure className="day-photo">
-            <img src={imageSrc} alt={`${day.title}行程风景`} loading="lazy" />
+            <picture>
+              <source srcSet={image.webp} type="image/webp" />
+              <img src={image.png} alt={`${day.title}行程风景`} loading="lazy" decoding="async" />
+            </picture>
             <figcaption>{day.mapLabel} · 第 {day.day} 日记录</figcaption>
           </figure>
         ) : null}

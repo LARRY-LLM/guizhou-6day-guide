@@ -9,7 +9,16 @@ const stopPositions = [
   "map-stop-6",
 ];
 
-export function RouteMap({ days, mapSrc }) {
+function ResponsiveImage({ image, alt, className }) {
+  return (
+    <picture className={className}>
+      <source srcSet={image.webp} type="image/webp" />
+      <img src={image.png} alt={alt} loading="lazy" decoding="async" />
+    </picture>
+  );
+}
+
+export function RouteMap({ days, mapImage, waterfallImage, villageImage }) {
   return (
     <section className="route-atlas" id="route-map" aria-labelledby="route-map-title">
       <header className="section-heading route-atlas-heading">
@@ -21,7 +30,7 @@ export function RouteMap({ days, mapSrc }) {
       </header>
 
       <div className="route-atlas-visual">
-        <img className="route-atlas-map" src={mapSrc} alt="贵州六日环线路线手绘地图" />
+        <ResponsiveImage className="route-atlas-map" image={mapImage} alt="贵州六日环线路线手绘地图" />
         <ol className="route-atlas-stops" aria-label="六日地图节点">
           {days.map((day, index) => (
             <li className={`map-stop ${stopPositions[index]}`} data-testid="map-stop" key={day.day}>
@@ -35,10 +44,10 @@ export function RouteMap({ days, mapSrc }) {
           ))}
         </ol>
         <figure className="route-map-photo route-map-photo-waterfall" aria-hidden="true">
-          <img src="./assets/huangguoshu-waterfall.png" alt="" />
+          <ResponsiveImage image={waterfallImage} alt="" />
         </figure>
         <figure className="route-map-photo route-map-photo-village" aria-hidden="true">
-          <img src="./assets/xijiang-village.png" alt="" />
+          <ResponsiveImage image={villageImage} alt="" />
         </figure>
         <div className="route-atlas-legend" aria-label="地图交通图例">
           <span><Train aria-hidden="true" /> 高铁</span>

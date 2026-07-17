@@ -73,16 +73,16 @@ final result: passed
 
 - source visual truth path：`C:/Users/LarryLiang/.codex/generated_images/019f6df4-1123-7b50-bac5-2be44378f5e6/exec-852d6737-bbf6-456d-a6dd-b1cdef73b2da.png`
 - 目标状态：模板 2 的“黔蓝手作旅行簿”路线地图、纸张台账与摄影碎片方向；实现增加完整 6 天正文，因此以同一“路线地图”区域做归一化比较，不把长页内容密度误判为视觉漂移。
-- browser-rendered implementation screenshot：`design-qa/desktop-route-focused-final.png`
-- full-view combined comparison evidence：`design-qa/comparison-route-map-final-pass.png`
-- focused region evidence：`design-qa/desktop-route-focused-final.png`、`design-qa/mobile-390x844-route-map.png`、`design-qa/mobile-390x844-preparation.png`、`design-qa/mobile-390x844-day3.png`
+- browser-rendered implementation screenshot：`design-qa/desktop-route-focused-final.webp`
+- full-view combined comparison evidence：`design-qa/comparison-route-map-final-pass.webp`
+- focused region evidence：`design-qa/desktop-route-focused-final.webp`、`design-qa/mobile-390x844-route-map.webp`、`design-qa/mobile-390x844-preparation.webp`、`design-qa/mobile-390x844-day3.webp`
 - 视口：1440 × 900、1024 × 900、390 × 844。
 - 状态：首屏、路线地图、行前总览、D3 行程卡、桌面/平板/手机响应式。
 
 ## Findings 与修复历史
 
-1. `[P2]` 行前总览标题未与四列台账对齐。初始代码遗漏 `.preparation-section > .section-heading` 容器约束，桌面与手机标题贴左。修复为桌面 `width: min(calc(100% - 48px), 1320px)`、手机 `calc(100% - 24px)`、打印 `100%`。修复后 390px 标题与台账左缘均为 12px，1440px 均为 52.33px；证据：`mobile-390x844-preparation.png`。
-2. `[P2]` 桌面路线图 D2 / D3 标签在统一向右展开时重叠。将标签宽度约束为 145–170px，并让 D2 向节点左侧展开；同一 1440 × 900 视口复查计算 `overlaps=[]`。修复后证据：`desktop-route-focused-final.png`、`comparison-route-map-final-pass.png`。
+1. `[P2]` 行前总览标题未与四列台账对齐。初始代码遗漏 `.preparation-section > .section-heading` 容器约束，桌面与手机标题贴左。修复为桌面 `width: min(calc(100% - 48px), 1320px)`、手机 `calc(100% - 24px)`、打印 `100%`。修复后 390px 标题与台账左缘均为 12px，1440px 均为 52.33px；证据：`mobile-390x844-preparation.webp`。
+2. `[P2]` 桌面路线图 D2 / D3 标签在统一向右展开时重叠。将标签宽度约束为 145–170px，并让 D2 向节点左侧展开；同一 1440 × 900 视口复查计算 `overlaps=[]`。修复后证据：`desktop-route-focused-final.webp`、`comparison-route-map-final-pass.webp`。
 3. `[P3]` 手机路线地图的节点交通清单后仍有六日速览，信息略重复。两者分别承担“详细交通”与“每日概览”，没有布局或可用性问题，保留为后续可选精简项。
 
 ## 必查视觉面
@@ -90,7 +90,7 @@ final result: passed
 - Fonts and typography：标题使用楷体书写感，正文采用可读的中文衬线/系统字体；桌面、平板与手机均无裁切，D3 长标题和交通文字正常换行。
 - Spacing and layout rhythm：首屏左右构图、路线图纸页、四列/两列/单列总览保持连续节奏；1440、1024、390 三档均无横向溢出。
 - Colors and visual tokens：米白纸张、靛蓝主色、朱红强调、低饱和墨绿色正文与参考模板一致，按钮和焦点态对比明确。
-- Image quality and asset fidelity：路线图为 2048 × 1152 真实生成位图，照片使用黄果树、西江、贵阳本地素材；没有用 CSS/手写 SVG/占位形状伪造地图、照片或核心装饰。
+- Image quality and asset fidelity：路线图源文件为 2048 × 1152 真实生成位图，页面优先交付 1600 × 900 WebP 并保留原 PNG 回退；照片使用黄果树、西江、贵阳本地素材；没有用 CSS/手写 SVG/占位形状伪造地图、照片或核心装饰。
 - Copy and content：页面已呈现原稿的 6 天行程、交通、价格、住宿、餐饮、预约、预算、避坑、来源与时效说明；D3 起点和 D5 住宿备选均与固定路线一致。
 
 ## 响应式、交互与可访问性
@@ -100,7 +100,7 @@ final result: passed
 - 390 × 844：行前总览为单列；路线节点改为静态清单；日程与汇总表通过 `data-label` 卡片化，D3 行程可读，无横向溢出。
 - Primary interactions tested：顶部“路线地图”“行前总览”锚点、路线图 D3 节点均在真实浏览器中成功定位；“打印或保存攻略”由交互测试验证会调用 `window.print()`。
 - Console errors checked：真实浏览器 warning/error 列表为空。
-- 自动化：Vitest 26/26 通过；Vite 生产构建成功；生产源码与产物旧路线扫描为空。
+- 自动化：Vitest 27/27 通过；Vite 生产构建成功；生产源码与产物旧路线扫描为空。
 
 ## Open Questions
 

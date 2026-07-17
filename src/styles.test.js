@@ -70,7 +70,9 @@ test("defines responsive day dossiers and printable summary ledgers", () => {
     ".trip-summaries",
     ".summary-ledger",
     ".warning-strip",
-    ".schedule-table td::before",
+    '.schedule-row > [data-label]::before',
+    '.hotel-row > [data-label]::before',
+    '.summary-table [role="row"] > [data-label]::before',
     "@media (max-width: 640px)",
   ]) {
     expect(css).toContain(contract);

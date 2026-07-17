@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, statSync } from "node:fs";
 import { resolve } from "node:path";
 import { expect, test } from "vitest";
 
@@ -15,6 +15,15 @@ const pagesWorkflowPath = resolve(
 );
 const legacyItineraryPath = resolve(process.cwd(), "src/data/itinerary.js");
 const legacyBridgeAssetPath = resolve(process.cwd(), "public/assets/xiaoqikong-bridge.png");
+const efficientImageAssets = [
+  "guizhou-route-map.webp",
+  "huangguoshu-waterfall.webp",
+  "indigo-border.webp",
+  "guiyang-evening.webp",
+  "indigo-seal.webp",
+  "xijiang-village.webp",
+  "paper-texture.webp",
+];
 
 test("uses relative production paths so dist can open directly from disk", () => {
   expect(viteConfigSource).toContain('base: "./"');
@@ -31,6 +40,21 @@ test("identifies the final guide in the browser and print metadata", () => {
 test("does not ship legacy Libo route material", () => {
   expect(existsSync(legacyItineraryPath)).toBe(false);
   expect(existsSync(legacyBridgeAssetPath)).toBe(false);
+});
+
+test("ships WebP alternatives and lazy-loads below-the-fold photography", () => {
+  const totalBytes = efficientImageAssets.reduce((sum, filename) => {
+    const imagePath = resolve(process.cwd(), "public/assets", filename);
+    expect(existsSync(imagePath)).toBe(true);
+    return sum + statSync(imagePath).size;
+  }, 0);
+  expect(totalBytes).toBeLessThan(4.5 * 1024 * 1024);
+
+  const routeMapSource = readFileSync(resolve(process.cwd(), "src/components/RouteMap.jsx"), "utf8");
+  const dayChapterSource = readFileSync(resolve(process.cwd(), "src/components/DayChapter.jsx"), "utf8");
+  expect(appSource).toContain('type="image/webp"');
+  expect(routeMapSource).toContain('loading="lazy"');
+  expect(dayChapterSource).toContain('loading="lazy"');
 });
 
 test("packages a Sites-compatible static worker", () => {

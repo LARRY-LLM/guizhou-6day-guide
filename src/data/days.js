@@ -8,7 +8,7 @@ const guiyangHotels = [
 const anshunHotels = [
   { name: '半山酒店（安顺古城黄果树大街店）', rating: '4.7', location: '安顺古城', highlight: '豪华榜 No.2，管家服务', price: '¥300–500' },
   { name: '安顺古城虹山湖路亚朵', rating: '4.5', location: '虹山湖/古城', highlight: '装修新，下楼虹湖', price: '¥350–500' },
-  { name: '悦立达（顾府街店）', rating: '4.6', location: '顾府街', highlight: '出门即古城夜市', price: '¥250–400' },
+  { name: '悦立达（顾府街店）', rating: '4.6', location: '顾府街', highlight: '出门即古城夜市夺夺粉', price: '¥250–400' },
   { name: '安顺西站美居', rating: '4.8', location: '安顺西站', highlight: '班车直达黄果树/龙宫，D3 出发便', price: '¥300–450' },
 ]
 

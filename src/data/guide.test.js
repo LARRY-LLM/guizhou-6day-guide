@@ -109,6 +109,13 @@ describe('complete six-day Guizhou guide data', () => {
       price: '¥300–450',
     })
     expect(hotels).toContainEqual({
+      name: '悦立达（顾府街店）',
+      rating: '4.6',
+      location: '顾府街',
+      highlight: '出门即古城夜市夺夺粉',
+      price: '¥250–400',
+    })
+    expect(hotels).toContainEqual({
       name: '栗上·Atelier（观景台店）',
       rating: '4.9',
       location: '观景台',
