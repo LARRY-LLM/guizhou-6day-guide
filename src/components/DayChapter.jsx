@@ -14,6 +14,33 @@ function TextSections({ sections }) {
   });
 }
 
+function FeatureSections({ sections = [] }) {
+  return sections.map((section, index) => (
+    <section className={`feature-section ${section.tone === "warning" ? "feature-warning" : ""}`} key={`${section.title}-${index}`}>
+      <header>
+        {section.kicker ? <p className="eyebrow">{section.kicker}</p> : null}
+        <h3>{section.title}</h3>
+      </header>
+      {section.intro ? <p className="feature-intro">{section.intro}</p> : null}
+      {section.steps?.length ? (
+        <ol className="feature-steps">
+          {section.steps.map((step, stepIndex) => (
+            <li key={`${step.title ?? step.text}-${stepIndex}`}>
+              <span aria-hidden="true">{stepIndex + 1}</span>
+              <div>
+                {step.title ? <strong>{step.title}</strong> : null}
+                <p>{step.text}</p>
+                {step.meta ? <small>{step.meta}</small> : null}
+              </div>
+            </li>
+          ))}
+        </ol>
+      ) : null}
+      {section.items?.length ? <ul>{section.items.map((item) => <li key={item}>{item}</li>)}</ul> : null}
+    </section>
+  ));
+}
+
 export function DayChapter({ day, image }) {
   return (
     <article className={`day-entry day-${day.day}`} id={`day-${day.day}`} data-testid="day-entry">
@@ -58,6 +85,12 @@ export function DayChapter({ day, image }) {
           ))}
         </div>
       </div>
+
+      {day.featureSections?.length ? (
+        <div className="day-feature-sections">
+          <FeatureSections sections={day.featureSections} />
+        </div>
+      ) : null}
 
       <div className="day-detail-grid">
         <section className="transport-notes">

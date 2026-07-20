@@ -4,7 +4,7 @@ function OverviewList({ items }) {
   return <ul>{items.map((item) => <li key={item}>{item}</li>)}</ul>;
 }
 
-export function TripOverview({ overview }) {
+export function TripOverview({ intercity, overview }) {
   return (
     <section className="preparation-section" id="preparation" aria-labelledby="preparation-title">
       <header className="section-heading">
@@ -12,6 +12,26 @@ export function TripOverview({ overview }) {
         <h2 id="preparation-title">行前总览</h2>
         <p>7–8 月 18–28℃，避暑但天气多变；门票、车次与住宿建议提前 2–4 周确认。</p>
       </header>
+      <article className="intercity-ledger" aria-labelledby="intercity-title">
+        <div className="intercity-heading">
+          <p className="eyebrow">GUANGZHOU ↔ GUIYANG</p>
+          <h3 id="intercity-title">城际交通</h3>
+          <p>{intercity.booking}</p>
+        </div>
+        <div className="intercity-options">
+          {intercity.options.map((option) => (
+            <section key={option.mode}>
+              <strong>{option.mode}</strong>
+              <p>{option.price}</p>
+              <span>{option.duration}</span>
+              <small>{option.note}</small>
+            </section>
+          ))}
+        </div>
+        <ul className="intercity-transfers">
+          {intercity.transfers.map((item) => <li key={item}>{item}</li>)}
+        </ul>
+      </article>
       <div className="trip-overview">
         <article className="overview-column">
           <TShirt aria-hidden="true" />
@@ -35,6 +55,7 @@ export function TripOverview({ overview }) {
           </dl>
           <strong>{overview.budget.total}</strong>
           <p className="budget-note">{overview.budget.note}</p>
+          <p className="budget-round-trip">{overview.budget.roundTrip}</p>
         </article>
         <article className="overview-column reservation-list">
           <CalendarCheck aria-hidden="true" />

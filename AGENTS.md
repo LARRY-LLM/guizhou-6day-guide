@@ -18,3 +18,6 @@ When implementing from a selected generated mock, treat that image as the source
 - Record every user-communicated task, issue, decision, diagnostic result, resolution, and blocker in `PROJECT_PROGRESS.md` promptly; stage-end summaries are not sufficient on their own.
 - Publish a public `guizhou-six-day-guide` repository through GitHub Pages with GitHub Actions as the primary mobile-sharing route; retain Sites version 3 as a fallback.
 - Use the Product Design plugin for the remaining webpage design and visual QA work.
+- Treat `D:/workbuddy/project/2026-07-16-16-34-33/贵州6天攻略_完整整合版.md` as the sole content source for the current redesign; every source item must be visible in the webpage, not summarized away.
+- Complete information architecture, responsive visual design, local browser QA, and print QA before the next review checkpoint. Do not push or deploy the redesign until the user inspects and approves the local webpage.
+- Use subagents for independent content coverage and review work, while keeping production-file implementation sequential to avoid edit conflicts.

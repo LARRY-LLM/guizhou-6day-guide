@@ -26,7 +26,7 @@ export function RouteMap({ days, mapImage, waterfallImage, villageImage }) {
           <p className="eyebrow">SIX-DAY ROUTE</p>
           <h2 id="route-map-title">六日行程路线图</h2>
         </div>
-        <p>贵阳进出，黄果树与苗寨为主线，安顺小景和朗德上寨顺路串联。</p>
+        <p>广州往返、贵阳作枢纽；黄果树与西江为主线，下司、朗德、龙宫和屯堡顺路串联。</p>
       </header>
 
       <div className="route-atlas-visual">

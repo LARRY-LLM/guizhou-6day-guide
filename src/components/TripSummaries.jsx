@@ -26,7 +26,7 @@ export function TripSummaries({ transport, stays, foodTips, warnings }) {
                 </div>
               ))}
             </div>
-            <p className="route-aphorism">进大景坐高铁，串小景包个车，苗寨之间拼个车。</p>
+            <p className="route-aphorism">进大景坐高铁，串小景包个车，古镇之间拼个车。</p>
           </article>
 
           <article>

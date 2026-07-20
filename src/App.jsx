@@ -13,6 +13,7 @@ import {
   foodTips,
   generalWarnings,
   guideMeta,
+  intercityTravel,
   preTripOverview,
   staySummary,
   transportComparison,
@@ -86,10 +87,10 @@ export function App() {
       <main>
         <section className="hero" aria-labelledby="page-title">
           <div className="hero-copy">
-            <p className="eyebrow">{guideMeta.season} · 贵阳进出 · {guideMeta.duration}</p>
+            <p className="eyebrow">广州往返 · 贵阳枢纽 · {guideMeta.duration}</p>
             <h1 id="page-title">贵州六日<br />完整旅行手记</h1>
             <p className="hero-subtitle">{guideMeta.subtitle}</p>
-          <p className="hero-intro">两大名景作主线，贵阳作枢纽，沿途串起安顺山水与黔东南苗乡。</p>
+          <p className="hero-intro">黄果树与西江作主线，串联龙宫、屯堡、下司与朗德；每天车程控制在 2.5 小时内。</p>
           <p className="hero-pace">{guideMeta.pace}</p>
             <div className="hero-actions no-print">
               <a className="button button-primary" href="#route-map">展开六日地图 <ArrowRight aria-hidden="true" /></a>
@@ -112,7 +113,7 @@ export function App() {
           waterfallImage={imageAsset("huangguoshu-waterfall")}
           villageImage={imageAsset("xijiang-village")}
         />
-        <TripOverview overview={preTripOverview} />
+        <TripOverview intercity={intercityTravel} overview={preTripOverview} />
 
         <section className="itinerary" id="itinerary" aria-labelledby="itinerary-title">
           <header className="section-heading">

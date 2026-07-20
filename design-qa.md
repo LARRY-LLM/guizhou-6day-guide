@@ -67,6 +67,47 @@ stage 2 final result: passed
 
 final result: passed
 
+# 源文档全量迁移设计 QA（2026-07-20）
+
+## 视觉基准与检查证据
+
+- source visual truth path：`C:/Users/LarryLiang/.codex/generated_images/019f6df4-1123-7b50-bac5-2be44378f5e6/exec-852d6737-bbf6-456d-a6dd-b1cdef73b2da.png`
+- 桌面首屏：`design-qa/design-qa-desktop-top.png`
+- 桌面路线图：`design-qa/design-qa-route-overview-focused.png`
+- 平板信息总览：`design-qa/design-qa-tablet-1024.png`
+- 手机首屏：`design-qa/design-qa-mobile-top-390.png`
+- 手机每日行程：`design-qa/design-qa-mobile-itinerary.png`
+- 检查视口：1440 × 900、1024 × 768、390 × 844。
+- 已将视觉基准与 1440px 实现首屏放在同一次图像对照中检查；构图、纸张肌理、黔蓝/朱红色系、摄影拼贴和书写标题语言连续。
+
+## 信息架构结果
+
+- 页面顺序固定为：六日路线地图 → 行前总览（城际交通、衣物、通用避坑、预算、预约）→ D1–D6 完整日程 → 全程交通与住宿 → 吃喝与全程避坑 → 来源与时效说明。
+- D2、D4、D6 的长篇玩法使用独立步骤章，避免把关键路线压进小字卡片；D1–D6 仍保留统一的时间、安排、耗时、提示、交通、住宿、饮食和避坑结构。
+- 源文档的 29 个时间表行、12 个具名酒店方案、6 条预约、6 段交通费用、5 条吃货提示和 7 条全程避坑均进入页面数据层并由组件实际消费。
+- 独立只读 subagent 分两段复核 D1–D3 与 D4–D6/全程汇总，结论均为“无明确遗漏”。
+
+## Findings 与修复
+
+1. `[P2]` 首轮数据迁移把 D4 的 17:00 入寨与 19:30 晚餐合并成一行，虽保留文字但丢失原稿的两个独立时间节点。已拆回两行，并把日程覆盖断言从 28 更新为 29。
+2. `[P2]` 交通口诀沿用了旧版“苗寨之间拼个车”。已按唯一源文档改为“进大景坐高铁，串小景包个车，古镇之间拼个车。”并增加渲染断言。
+3. `[P2]` 全量内容加入后需要更清晰的阅读层级。已增加城际交通台账、往返预算补充、重点玩法步骤章与长文告警样式，同时维持原有黔蓝手作旅行簿视觉语言。
+
+## 响应式、运行与构建核验
+
+- 1440px：`scrollWidth 1425 === clientWidth 1425`，无横向溢出；首屏左右构图与路线图标签清晰。
+- 1024px：`scrollWidth 1009 === clientWidth 1009`，两列信息台账可读。
+- 390px：`scrollWidth 375 === clientWidth 375`，导航可横向容纳，日程转为单列时间轴，图片与正文没有裁切。
+- 浏览器控制台 warning/error 列表为空；路线图图片加载完成；导航“每日行程”成功定位 `#itinerary`。
+- Vitest 31/31 通过；Vite 生产构建成功；`git diff --check` 无空白错误。
+
+## 发布边界
+
+- 本轮只完成本地网页排版与构建核验；没有 push，没有触发 GitHub Actions，也没有更新 GitHub Pages 或 Sites。
+- 当前停在用户人工检查节点，收到明确确认后才进入部署阶段。
+
+final result: passed
+
 # 完整攻略重构最终设计 QA（2026-07-17）
 
 ## 对照基准与实现证据

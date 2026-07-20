@@ -7,6 +7,7 @@ import {
   foodTips,
   generalWarnings,
   guideMeta,
+  intercityTravel,
   preTripOverview,
   staySummary,
   transportComparison,
@@ -22,8 +23,8 @@ test("renders the selected complete-guide hero and six-stop route atlas", () => 
   expect(screen.getByRole("heading", { name: "六日行程路线图", level: 2 })).toBeInTheDocument();
   expect(screen.getAllByTestId("map-stop")).toHaveLength(6);
   expect(screen.getAllByTestId("route-day")).toHaveLength(6);
-  expect(screen.getAllByText("龙宫 · 天龙屯堡").length).toBeGreaterThan(0);
-  expect(screen.getAllByText("朗德上寨").length).toBeGreaterThan(0);
+  expect(screen.getAllByText("龙宫 · 屯堡 · 下司").length).toBeGreaterThan(0);
+  expect(screen.getAllByText("下司 · 朗德 · 西江").length).toBeGreaterThan(0);
   expect(screen.queryByText(/小七孔/)).not.toBeInTheDocument();
 });
 
@@ -47,9 +48,9 @@ test("renders every preparation and daily-guide module", () => {
   const { container } = render(<App />);
 
   expect(screen.getAllByTestId("day-entry")).toHaveLength(6);
-  expect(screen.getAllByTestId("schedule-row")).toHaveLength(24);
+  expect(screen.getAllByTestId("schedule-row")).toHaveLength(29);
   expect(screen.getAllByTestId("hotel-row")).toHaveLength(12);
-  expect(screen.getAllByTestId("reservation-item")).toHaveLength(5);
+  expect(screen.getAllByTestId("reservation-item")).toHaveLength(6);
   expect(screen.getByText("约 2700–4300")).toBeInTheDocument();
   expect(screen.getAllByText(/12 道拦门酒/).length).toBeGreaterThan(0);
   expect(screen.getAllByText(/夺夺粉/).length).toBeGreaterThan(0);
@@ -64,6 +65,13 @@ test("renders every preparation and daily-guide module", () => {
     for (const value of [day.title, day.location, day.transit, day.stay, day.hotelNote]) expectVisible(value);
     for (const row of day.schedule) {
       for (const value of Object.values(row)) expectVisible(value);
+    }
+    for (const section of day.featureSections ?? []) {
+      for (const value of [section.kicker, section.title, section.intro]) expectVisible(value);
+      for (const item of section.items ?? []) expectVisible(item);
+      for (const step of section.steps ?? []) {
+        for (const value of [step.title, step.text, step.meta]) expectVisible(value);
+      }
     }
     for (const section of day.transportSections) {
       expectVisible(section.title);
@@ -85,9 +93,12 @@ test("renders every preparation and daily-guide module", () => {
   for (const row of staySummary) for (const value of Object.values(row)) expectVisible(value);
   for (const item of foodTips) for (const value of Object.values(item)) expectVisible(value);
   for (const warning of generalWarnings) expectVisible(warning);
+  for (const option of intercityTravel.options) for (const value of Object.values(option)) expectVisible(value);
+  for (const transfer of intercityTravel.transfers) expectVisible(transfer);
+  expectVisible(intercityTravel.booking);
   for (const key of ["pace", "sourceComposition", "sourceDisclaimer", "sourceNote"]) expectVisible(guideMeta[key]);
-  expect(visibleText).not.toContain("傍晚经凯里南返回贵阳");
-  expect(visibleText).not.toContain("文昌阁、电台街");
+  expect(visibleText).not.toContain("D3 安顺→龙宫→屯堡→贵阳");
+  expect(visibleText).not.toContain("D5 西江→朗德→回");
 });
 
 test("renders complete transport, stay, food, and warning summaries", () => {
@@ -96,7 +107,7 @@ test("renders complete transport, stay, food, and warning summaries", () => {
   expect(screen.getAllByTestId("transport-comparison-row")).toHaveLength(6);
   expect(screen.getAllByTestId("stay-summary-row")).toHaveLength(6);
   expect(
-    screen.getByText("进大景坐高铁，串小景包个车，苗寨之间拼个车。"),
+    screen.getByText("进大景坐高铁，串小景包个车，古镇之间拼个车。"),
   ).toBeInTheDocument();
   expect(screen.getByText(/实际票价、班次、房价、预约政策/)).toBeInTheDocument();
 });

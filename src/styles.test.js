@@ -114,3 +114,23 @@ test("aligns the preparation heading with the overview ledger", () => {
   expect(css).toMatch(/@media \(max-width: 640px\)[\s\S]*?\.preparation-section > \.section-heading\s*\{[^}]*width: calc\(100% - 24px\)/);
   expect(css).toMatch(/@media print[\s\S]*?\.preparation-section > \.section-heading\s*\{[^}]*width: 100%/);
 });
+
+test("defines the full-source information architecture contracts", () => {
+  for (const contract of [
+    ".intercity-ledger",
+    ".intercity-options",
+    ".intercity-transfers",
+    ".budget-round-trip",
+    ".day-feature-sections",
+    ".feature-section",
+    ".feature-steps",
+    ".feature-warning",
+    ".feature-steps > li",
+  ]) {
+    expect(css).toContain(contract);
+  }
+
+  expect(css).toMatch(/@media \(max-width: 999px\)[\s\S]*?\.intercity-ledger/);
+  expect(css).toMatch(/@media \(max-width: 640px\)[\s\S]*?\.feature-steps/);
+  expect(css).toMatch(/@media print[\s\S]*?\.day-feature-sections/);
+});
